@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaked Photo of Heaven</title>
+<style>
+  :root {
+    --bg: #f5f2ea; --paper: #fffdf8; --ink: #1f1c17; --muted: #746d61; --line: #ddd6c8;
+    --tape: #f1dc8f; --tape-ink: #4d3f0c; --lost: #a39a8b; --accent: #b8433a; --kept: #2f7d5b;
+    --ta: #2f5fb3; --tb: #a5640f;
+    --kq: #4f7cc9; --kr: #c0653f; --ki: #6e9a3c; --ko: #8a68b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #171512; --paper: #211f1b; --ink: #ede8df; --muted: #a29b8f; --line: #3a3630;
+      --tape: #6b5a1c; --tape-ink: #fbefc4; --lost: #7d766b; --accent: #ec7d70; --kept: #6cc79a;
+      --ta: #8fb0f0; --tb: #e8a65a;
+      --kq: #86a8ec; --kr: #ec9672; --ki: #a5cf73; --ko: #bc9de6;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+  header { padding: 48px 0 24px; }
+  .kicker { text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: var(--muted); }
+  h1 { font-size: clamp(30px, 6vw, 48px); line-height: 1.1; margin: 8px 0 14px; font-weight: 500; }
+  .lede { font-size: 18px; max-width: 640px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0 8px; color: var(--muted); font-size: 14px; }
+  .facts b { display: block; font-size: 26px; color: var(--ink); font-weight: 500; }
+  .strip { display: flex; gap: 6px; overflow-x: auto; padding: 14px 0 6px; scrollbar-color: var(--line) transparent; }
+  .strip img { width: 54px; height: 54px; object-fit: cover; border-radius: 6px; cursor: pointer; flex: none; border: 1px solid var(--line); }
+  .strip img:hover { outline: 2px solid var(--accent); }
+  .act { margin: 48px 0 12px; display: grid; grid-template-columns: 44px 1fr; gap: 0 12px; }
+  .act .n { font-size: 34px; color: var(--accent); line-height: 1; }
+  .act h2 { margin: 0; font-size: 24px; font-weight: 500; }
+  .act p { margin: 4px 0 0; color: var(--muted); grid-column: 2; }
+  .step { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; display: grid;
+          grid-template-columns: 260px 1fr; overflow: hidden; scroll-margin-top: 20px; }
+  @media (max-width: 680px) { .step { grid-template-columns: 1fr; } }
+  .pic { position: relative; background: var(--line); min-height: 220px; }
+  .pic img { width: 100%; height: 100%; object-fit: cover; display: block; max-height: 340px; }
+  .pic .tag { position: absolute; left: 8px; bottom: 8px; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; padding: 2px 8px; border-radius: 4px; }
+  .body { padding: 16px 18px; }
+  .meta { font-size: 13px; color: var(--muted); }
+  .title { font-size: 19px; font-weight: 600; margin: 2px 0 8px; }
+  .quote { font-size: 17px; border-left: 3px solid var(--line); padding-left: 10px; margin: 0 0 12px; white-space: pre-wrap; }
+  .quote.empty { color: var(--muted); font-style: italic; }
+  .kal { display: grid; grid-template-columns: 60px 1fr; gap: 6px 10px; font-size: 14px; align-items: start; }
+  .kal .k { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-top: 2px; }
+  .added span { background: var(--tape); color: var(--tape-ink); padding: 1px 6px; transform: rotate(-.6deg); display: inline-block;
+                clip-path: polygon(1% 4%, 99% 0, 100% 96%, 0 100%); }
+  .lost span { color: var(--lost); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+  .kept span { color: var(--kept); }
+  .foot { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .chip { border: 1px solid var(--line); border-radius: 99px; padding: 1px 9px; }
+  .drift { display: inline-flex; align-items: center; gap: 6px; }
+  .drift i { width: 60px; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; display: inline-block; }
+  .drift i b { display: block; height: 100%; background: var(--accent); }
+  .note { font-size: 13px; color: var(--muted); margin-top: 10px; font-style: italic; }
+  a { color: var(--accent); }
+  .link { margin: 0 0 0 28px; padding: 10px 0 10px 22px; border-left: 2px dashed var(--line); font-size: 13px; color: var(--muted); }
+  .link b { color: var(--ink); font-weight: 500; }
+  #mapbox { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 8px; margin-top: 8px; }
+  #map { width: 100%; height: auto; display: block; }
+  #map text { fill: var(--muted); font: 13px system-ui, sans-serif; }
+  #map .gt { fill: var(--ink); font-weight: 600; font-size: 14px; }
+  #map .node { cursor: pointer; }
+  #map .edge { fill: none; stroke: var(--muted); stroke-width: 1; opacity: .35; }
+  #map .edge.deep { opacity: .8; stroke-width: 1.5; }
+  #map .edge.hid { opacity: 0; }
+  #map .edge.hid.on { opacity: 1; }
+  #map .trunk { fill: none; stroke: var(--muted); stroke-width: 6; opacity: .25; stroke-linecap: round; }
+  #map .edge.on { stroke: var(--accent); opacity: 1; stroke-width: 2.5; }
+  #map .ring { fill: none; stroke-width: 3; }
+  #map .node:hover .ring, #map .node.on .ring { stroke: var(--accent) !important; stroke-width: 4; }
+  .maphint { font-size: 13px; color: var(--muted); margin: 6px 4px 0; }
+  #tip { position: fixed; z-index: 5; width: 300px; background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+         box-shadow: 0 8px 28px rgba(0,0,0,.25); padding: 10px; pointer-events: none; opacity: 0; transition: opacity .12s; font-size: 13px; }
+  #tip.show { opacity: 1; pointer-events: auto; }
+  #tip img { width: 100%; max-height: 170px; object-fit: cover; border-radius: 6px; display: block; margin-bottom: 8px; }
+  #tip .tt { font-weight: 600; font-size: 15px; margin: 2px 0 4px; }
+  #tip .q { font-family: Georgia, serif; border-left: 3px solid var(--line); padding-left: 8px; margin: 0 0 8px; }
+  #tip .kal { font-size: 13px; grid-template-columns: 50px 1fr; gap: 3px 8px; }
+  #tip .go { display: none; margin-top: 8px; }
+  @media (hover: none) { #tip .go { display: inline-block; } }
+  .typetag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .04em; color: #fff; border-radius: 4px; padding: 1px 6px; margin-right: 6px; vertical-align: 1px; }
+  .typetag.A { background: var(--ta); } .typetag.B { background: var(--tb); } .typetag.root { background: var(--muted); }
+  .act.A .n { color: var(--ta); } .act.B .n { color: var(--tb); }
+  .det { margin-top: 12px; font-size: 13px; }
+  .det summary { cursor: pointer; color: var(--muted); }
+  .det dl { display: grid; grid-template-columns: 112px 1fr; gap: 4px 10px; margin: 8px 0 0; }
+  .det dt { color: var(--muted); } .det dd { margin: 0; overflow-wrap: anywhere; }
+  .det code { font-size: 12px; }
+  .origin { background: var(--paper); border: 1px dashed var(--muted); border-radius: 12px; padding: 14px 16px; margin: 10px 0; font-size: 14px; }
+  .origin h3 { margin: 0 0 4px; font-size: 16px; }
+  .origin ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); }
+  #tip .dd { display: grid; grid-template-columns: 70px 1fr; gap: 2px 8px; margin-top: 8px; font-size: 12px; color: var(--muted); }
+  #tip .dd b { color: var(--ink); font-weight: 500; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 8px; }
+  .lgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+  .lcard { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; border-top: 4px solid var(--c, var(--line)); }
+  .lcard .ic { font-size: 22px; line-height: 1; }
+  .lcard h3 { margin: 6px 0 2px; font-size: 16px; }
+  .lcard .num { font-size: 24px; font-weight: 500; }
+  .lcard p { margin: 4px 0; font-size: 13px; color: var(--muted); }
+  .lcard .tr { font-size: 12px; }
+  .thumbs { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+  .thumb { position: relative; width: 44px; height: 44px; border-radius: 7px; overflow: hidden; cursor: pointer; border: 2px solid var(--line); flex: none; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb b { position: absolute; right: 1px; top: 1px; background: var(--ink); color: var(--bg); font-size: 10px; border-radius: 6px; padding: 0 4px; }
+  .thumb.A { border-color: var(--ta); } .thumb.B { border-color: var(--tb); } .thumb.root { border-color: var(--ink); }
+  #tl text { fill: var(--muted); font: 11px system-ui, sans-serif; }
+  #tl .mk { cursor: pointer; }
+  #facetbar { display: flex; flex-wrap: wrap; gap: 6px; }
+  #facetbar button { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 5px 12px; cursor: pointer; }
+  #facetbar button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  #facetgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .fcol { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+  .fcol h4 { margin: 0 0 2px; font-size: 14px; } .fcol .meta { margin-bottom: 4px; }
+  footer { margin: 60px 0 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  .cta { display: inline-block; margin: 8px 0 16px; padding: 10px 16px; border-radius: 8px; background: var(--ink); color: var(--bg); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Meme tracing · one chain, step by step</div>
+    <h1 class="serif">“Leaked photo of heaven is going viral on social media”</h1>
+    <p class="lede">An image that many people called AI-made was shared as a real photo of heaven.
+      On Bluesky it was quoted and replied to hundreds of times. The versions split two ways:
+      <span class="typetag A">TYPE A</span>picture-based, working on the original picture, and
+      <span class="typetag B">TYPE B</span>topic-based, keeping the sentence and bringing a new picture.
+      Those are two of several ways to sort them. Here are 27 versions. Each one shows what it <span style="color:var(--kept)">kept</span>,
+      what it <span class="added" style="font-size:inherit"><span>added</span></span>, and what it <span class="lost"><span>lost</span></span>.</p>
+    <div class="facts" id="facts"></div>
+    <div class="strip" id="strip"></div>
+  </header>
+  <section>
+    <div class="act" style="margin-top:8px"><div class="n serif">↳</div><h2 class="serif">The chain at a glance</h2>
+      <p>Lines show who quoted or replied to whom. Hover over a picture to see the post's details; click to jump to its step.</p></div>
+    <div id="mapbox"><svg id="map" viewBox="0 0 860 900" role="img" aria-label="Tree of the versions"></svg></div>
+  </section>
+  <section>
+    <div class="act"><div class="n serif">⇄</div><h2 class="serif">How a post can link to the original</h2>
+      <p>Not every version points back the same way. Some links can be traced through the API; some can only be found by searching the text; some are pictures of posts, which no API can follow.</p></div>
+    <div id="links" class="lgrid"></div>
+  </section>
+  <section>
+    <div class="act"><div class="n serif">⏱</div><h2 class="serif">Timeline</h2>
+      <p>Every collected post, per hour, colored by how it links. The circles on top are the versions in this story: hover to see one.</p></div>
+    <div class="card" id="tlbox"><svg id="tl" viewBox="0 0 860 560" role="img" aria-label="Posts per hour over time"></svg></div>
+  </section>
+  <section>
+    <div class="act"><div class="n serif">▦</div><h2 class="serif">Other ways to sort the versions</h2>
+      <p>A / B is one lens. Each button sorts the same versions by a different question. These codes are a first draft.</p></div>
+    <div id="facetbar"></div>
+    <p id="facetq" class="meta" style="margin:8px 2px"></p>
+    <div id="facetgrid"></div>
+  </section>
+  <div id="tip"></div>
+  <main id="chain"></main>
+  <footer>
+    <a class="cta" href="chain_viewer.html">Explore the full chain: all quote posts →</a><br>
+    Data: public Bluesky posts (quote posts and replies), collected Oct 7, 2026 with the public API.
+    Versions picked by Charlotte and Claude. Counts are as of collection.
+    Handles are shown for research use; hide them before sharing publicly (set SHOW_HANDLES to false in this file).
+    “Kept / added / lost” and emotion are a first hand-coded draft; drift scores are simple first measures
+    (caption: character overlap; image: perceptual hash), to be replaced by sentence embeddings and CLIP.
+  </footer>
+</div>
+
+<script src="data/meme_chain.js"></script>
+<script>
+const SHOW_HANDLES = true;   // set to false before sharing publicly
+const M = window.MEME, S = M.steps;
+const t0 = Date.parse(M.root_created);
+const esc = s => (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ago = iso => { const m = (Date.parse(iso) - t0) / 60000;
+  if (m < 0) return -m < 2880 ? (-m / 60).toFixed(1).replace(".0", "") + " hours before the biggest entry post" : Math.round(-m / 1440) + " days before the biggest entry post";
+  return m < 1 ? "the original" : m < 60 ? Math.round(m) + " min later" : m < 2880 ? (m / 60).toFixed(1).replace(".0", "") + " hours later"
+       : m < 86400 ? Math.round(m / 1440) + " days later" : Math.round(m / 43200) + " months later"; };
+const utc = iso => iso ? new Date(iso).toLocaleString("en-US", { timeZone: "UTC", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }) + " UTC" : "?";
+const day = iso => iso ? new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "?";
+// round down so a number never looks bigger than it is (9,963 → "9.9k", not "10.0k")
+const fol = n => n == null ? "?" : n >= 10000 ? Math.floor(n / 1000) + "k" : n >= 1000 ? (Math.floor(n / 100) / 10).toFixed(1) + "k" : n;
+const who = s => SHOW_HANDLES ? `${esc(s.details.display_name || s.author_handle)} <span style="opacity:.75">@${esc(s.author_handle)}</span>` : `an account with ${fol(s.author_followers)} followers`;
+const byId = Object.fromEntries(S.map((s, i) => [s.id, i]));
+const ROOT = S.findIndex(s => s.kind === "root");
+const TYPE = { A: "TYPE A", B: "TYPE B", root: "ENTRY" };
+
+document.getElementById("facts").innerHTML = [
+  [M.total_quotes, "quote posts"], [M.total_replies, "replies"], ["7 min", "until the first picture swap"],
+  [S.filter(s => s.type === "A").length + " / " + S.filter(s => s.type === "B").length, "type A / type B shown"], ["14 mo", "later, still in use"]
+].map(([a, b]) => `<div><b>${a}</b>${b}</div>`).join("");
+document.getElementById("strip").innerHTML = S.map((s, i) =>
+  `<img src="${s.image_path_or_url}" alt="" title="${i + 1}. ${esc(s.title)}" style="border-color:var(--t${s.type === "A" ? "a" : s.type === "B" ? "b" : "x"})" onclick="document.getElementById('s${i}').scrollIntoView({behavior:'smooth'})">`).join("");
+
+function relation(s, i) {
+  if (s.parent_id == null) return s.kind === "root" ? "" : "<b>no link</b>: a separate post";
+  const p = byId[s.parent_id], verb = s.kind === "reply" ? "replies to" : "quotes";
+  return `${verb} ${p === undefined ? "a post not shown" : p === i - 1 ? "the post above" : p === ROOT ? "the biggest entry post" : "step " + (p + 1)}`;
+}
+function linkText(s, i) {
+  const img = { edited: "<b>picture edited</b>", cropped: "<b>picture cropped</b>", reframed: "<b>new picture in the original frame</b>" }[s.image_change]
+    || { inherited: "same picture", same: "same picture, re-uploaded", new: "<b>new picture</b>", original: "" }[s.image_status];
+  const cap = { kept: "caption kept", edited: "<b>caption edited</b>", new: "<b>own words</b>", none: "no caption", original: "" }[s.caption_status];
+  return [relation(s, i), img, cap].filter(Boolean).join(" · ");
+}
+function detailsHTML(s, i) {
+  const d = s.details, p = d.parent;
+  const imgs = d.images.length ? d.images.map((im, k) => `#${k + 1}${im.aspect ? ` (${im.aspect.width}×${im.aspect.height})` : ""}: ${im.alt ? "alt “" + esc(im.alt) + "”" : "<i>no alt text</i>"}`).join("<br>") : "none of its own (shows the picture it " + (s.kind === "reply" ? "replies to" : "quotes") + ")";
+  const rows = [
+    ["Account", SHOW_HANDLES ? `${esc(d.display_name)} · <a href="https://bsky.app/profile/${esc(s.author_handle)}" target="_blank" rel="noopener">@${esc(s.author_handle)}</a>` : "hidden"],
+    ["Audience", `${fol(s.author_followers)} followers · follows ${fol(d.following)} · ${fol(d.posts)} posts`],
+    ["Joined Bluesky", day(d.joined)],
+    ["Posted", `${utc(s.createdAt)} (${ago(s.createdAt)})`],
+    ["Kind", s.kind === "root" ? "entry post" : s.kind],
+    [s.kind === "reply" ? "Replies to" : "Quotes", p ? `${SHOW_HANDLES ? "@" + esc(p.handle) + ": " : ""}“${esc(p.text.slice(0, 120)) || "(no text)"}” · <a href="${p.url}" target="_blank" rel="noopener">open ↗</a>` : "—"],
+    ["Full text", s.text ? esc(s.text) : "<i>(no text)</i>"],
+    ["Language", (d.langs || []).join(", ") || "—"],
+    ["Images", imgs],
+    ["Links", (d.links || []).length ? d.links.map(l => `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(l)}</a>`).join("<br>") : "—"],
+    ["Engagement", `♥ ${s.likeCount} · ↻ ${s.repostCount} reposts · ${d.replyCount ?? "?"} replies · ${s.quoteCount} quotes`],
+    ["Labels", (d.labels || []).join(", ") || "none"],
+    ["Picked by", esc(s.picked_by) || "—"],
+    ["Post", `<a href="${s.url}" target="_blank" rel="noopener">open on Bluesky ↗</a>`],
+    ["AT URI", `<code>${esc(d.uri)}</code>`],
+  ];
+  return `<details class="det"><summary>Full post details</summary><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></details>`;
+}
+
+// ---------- story ----------
+let html = `<div class="act"><div class="n serif">0</div><h2 class="serif">Before Bluesky: the X posts</h2><p>Traced from news reports and post IDs. Not collected through an API.</p></div>`;
+M.origin.forEach(o => {
+  html += `<div class="origin"><div class="meta">${esc(o.platform)} · ${utc(o.createdAt)} · ${ago(o.createdAt)}</div>
+    <h3>${esc(o.title)}: ${SHOW_HANDLES ? "@" + esc(o.handle) : "an X account"}</h3>
+    ${o.text ? `<p class="quote serif" style="margin:6px 0">${esc(o.text)}</p>` : ""}
+    <ul>${o.facts.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
+    <div class="meta" style="margin-top:6px"><a href="${o.url}" target="_blank" rel="noopener">post on X ↗</a> · Sources: ${o.sources.map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(", ")}</div></div>`;
+});
+let lastAct = null;
+S.forEach((s, i) => {
+  if (s.act !== lastAct) {
+    const a = M.acts.find(a => a.id === s.act);
+    html += `<div class="act ${a.type}"><div class="n serif">${a.id}</div><h2 class="serif">${esc(a.title)}</h2><p>${esc(a.summary)}</p></div>`;
+    lastAct = s.act;
+  }
+  if (i > 0) html += `<div class="link">${linkText(s, i)}</div>`;
+  const row = (k, v, cls) => v ? `<div class="k">${k}</div><div class="${cls}"><span>${esc(v)}</span></div>` : "";
+  html += `
+  <article class="step" id="s${i}">
+    <div class="pic"><img src="${s.image_path_or_url}" alt="${esc(s.image_alt)}" loading="lazy">
+      ${s.own_image ? "" : `<span class="tag">shows the picture it ${s.kind === "reply" ? "replies to" : "quotes"}</span>`}</div>
+    <div class="body">
+      <div class="meta"><span class="typetag ${s.type}">${TYPE[s.type]}</span>Step ${i + 1} · ${ago(s.createdAt)} · ${s.kind === "root" ? "entry post" : s.kind}${s.depth > 1 ? " ×" + s.depth : ""}</div>
+      <div class="title">${esc(s.title)}</div>
+      <p class="quote serif ${s.text ? "" : "empty"}">${s.text ? esc(s.text) : "(no caption: the picture says it)"}</p>
+      <div class="kal">${row("Kept", s.kept, "kept")}${row("Added", s.added, "added")}${row("Lost", s.lost, "lost")}</div>
+      ${s.note || s.ai_note ? `<div class="note">${esc([s.ai_note, s.note].filter(Boolean).join(" · "))}</div>` : ""}
+      <div class="foot">
+        <span class="chip">feels: ${esc(s.emotion)}</span>
+        ${s.text_drift != null ? `<span class="drift">caption drift <i><b style="width:${s.text_drift * 100}%"></b></i> ${s.text_drift.toFixed(2)}</span>` : ""}
+        ${s.image_drift != null ? `<span class="drift">image drift <i><b style="width:${s.image_drift * 100}%"></b></i> ${s.image_drift.toFixed(2)}</span>` : ""}
+        <span>${who(s)} · ${fol(s.author_followers)} followers · ♥ ${fol(s.likeCount)}</span>
+      </div>
+      ${detailsHTML(s, i)}
+    </div>
+  </article>`;
+});
+document.getElementById("chain").innerHTML = html;
+
+// ---------- chain map ----------
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("map"), tip = document.getElementById("tip"), box = document.getElementById("mapbox");
+const rk = s => s.id.split("/").pop();
+const SZ = 56;
+const POS = {
+  "3lfor55ezxc2s": [430, 140], "3lfnnbeml3224": [90, 140], "3lfnnswiv6s2f": [210, 140],
+  // type A, row 1: edits the picture
+  "3lfpddcditc2s": [80, 362], "3lfpl4wbxw22c": [160, 362], "3lfpvmdddns24": [240, 362], "3lfpcv4jet22b": [320, 362],
+  // type A, row 2: talks about the picture
+  "3lfpfi5p7vk22": [60, 466], "3lfpslacrps2t": [135, 466], "3lfpspvleck2b": [210, 466], "3lfpw25vj4c27": [285, 466], "3lfqvrewlrc22": [360, 466],
+  // type B: keeps the sentence, new picture
+  "3lforjtez4k2e": [485, 362], "3lfou6mr3622i": [560, 362], "3lfozditffs2k": [635, 362], "3lfphe6jsks2w": [710, 362], "3lfpptucz222k": [785, 362],
+  "3lfptvbvsfc2q": [485, 466], "3lfrczst6622h": [560, 466], "3lfryhmn7tk2v": [635, 466], "3lfsew5pkd22g": [710, 466],
+  // type B: hand to hand
+  "3lfrs34zjq22i": [640, 625], "3lfrte4lcwk2p": [570, 720], "3lfrsc5ub6c2i": [710, 720], "3lfrtm45wqs22": [570, 810], "3lfrus2jjlk2h": [710, 810],
+  // long tail
+  "3mgk35oklv22f": [800, 625],
+};
+function el(tag, a, parent) { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); (parent || svg).appendChild(e); return e; }
+function txt(x, y, s, cls, anchor, style) { const t = el("text", { x, y, class: cls || "", "text-anchor": anchor || "middle" }); if (style) t.setAttribute("style", style); t.textContent = s; return t; }
+
+// branch boxes
+el("rect", { x: 20, y: 250, width: 400, height: 290, rx: 10, fill: "none", stroke: "var(--ta)", "stroke-dasharray": "6 4", "stroke-width": 1.5 });
+txt(36, 275, "Type A · picture-based", "gt", "start", "fill:var(--ta)"); txt(36, 293, "works on the original picture", "", "start");
+txt(36, 322, "edits it", "", "start", "font-weight:600"); txt(36, 426, "talks about it", "", "start", "font-weight:600");
+el("rect", { x: 440, y: 250, width: 400, height: 290, rx: 10, fill: "none", stroke: "var(--tb)", "stroke-dasharray": "6 4", "stroke-width": 1.5 });
+txt(456, 275, "Type B · topic-based", "gt", "start", "fill:var(--tb)"); txt(456, 293, "keeps the sentence, brings a new picture", "", "start");
+txt(598, 620, "passed hand to hand", "gt", "end"); txt(598, 638, "quote → quote → quote", "", "end");
+txt(800, 675, "14 months later", "gt");
+el("path", { d: "M405,180 C405,215 220,215 220,248", class: "trunk", style: "stroke:var(--ta)" });
+el("path", { d: "M455,180 C455,215 640,215 640,248", class: "trunk", style: "stroke:var(--tb)" });
+txt(430, 205, "the Bluesky entry post (screenshot of X)", "");
+
+// X origin (hover for details)
+const og = el("g", { class: "node", tabindex: 0 });
+el("rect", { x: 330, y: 12, width: 200, height: 48, rx: 8, fill: "var(--paper)", stroke: "var(--muted)", "stroke-dasharray": "4 3" }, og);
+const o1 = el("text", { x: 430, y: 32, "text-anchor": "middle", class: "gt" }, og); o1.textContent = "X · @pallnandi · Jan 12, 2025";
+const o2 = el("text", { x: 430, y: 50, "text-anchor": "middle" }, og); o2.textContent = "image first seen Dec 30, 2024";
+el("path", { d: "M430,60 L430,98", class: "edge deep" });
+// separate entry points: copied from X, no link to each other
+el("path", { d: "M330,36 C210,36 210,60 210,108", class: "edge deep", style: "stroke-dasharray:2 4" });
+el("path", { d: "M330,36 C90,36 90,60 90,108", class: "edge deep", style: "stroke-dasharray:2 4" });
+txt(150, 200, "separate entry points (no link)", "");
+
+// edges (real quote/reply links). Links from the entry post are drawn as the two trunks; shown on hover.
+const edges = {};
+S.forEach(s => {
+  const pi = byId[s.parent_id]; if (pi === undefined) return;
+  const p = S[pi];
+  const [x1, y1] = POS[rk(p)], [x2, y2] = POS[rk(s)];
+  const sy = y1 + (pi === ROOT ? 40 : SZ / 2), ey = y2 - SZ / 2, my = (sy + ey) / 2;
+  const fromRoot = pi === ROOT, cross = p.type !== s.type && !fromRoot;
+  edges[rk(s)] = el("path", { d: `M${x1},${sy} C${x1},${my} ${x2},${my} ${x2},${ey}`,
+    class: "edge" + (fromRoot ? " hid" : " deep"), style: cross ? "stroke-dasharray:5 4;stroke:var(--ink)" : "" });
+});
+el("text", { x: 404, y: 420, "text-anchor": "middle", style: "font-size:11px" }).textContent = "crossover";
+
+// nodes
+const defs = el("defs", {});
+el("rect", { x: -SZ / 2, y: -SZ / 2, width: SZ, height: SZ, rx: 9 }, el("clipPath", { id: "nc" }, defs));
+const RING = { A: "var(--ta)", B: "var(--tb)", root: "var(--ink)" };
+S.forEach((s, i) => {
+  const [x, y] = POS[rk(s)];
+  const g = el("g", { class: "node", transform: `translate(${x},${y}) scale(${i === ROOT ? 1.4 : 1})`, tabindex: 0 });
+  el("image", { href: s.image_path_or_url, x: -SZ / 2, y: -SZ / 2, width: SZ, height: SZ, preserveAspectRatio: "xMidYMid slice", "clip-path": "url(#nc)" }, g);
+  el("rect", { class: "ring", x: -SZ / 2, y: -SZ / 2, width: SZ, height: SZ, rx: 9, stroke: RING[s.type], "stroke-dasharray": s.own_image ? "" : "4 3" }, g);
+  el("circle", { cx: SZ / 2 - 2, cy: -SZ / 2 + 2, r: 9.5, fill: "var(--ink)" }, g);
+  const n = el("text", { x: SZ / 2 - 2, y: -SZ / 2 + 6, "text-anchor": "middle", style: "fill:var(--bg);font-size:11px;font-weight:600" }, g); n.textContent = i + 1;
+  if (s.kind === "reply") {
+    el("rect", { x: -SZ / 2 + 3, y: SZ / 2 - 16, width: 13, height: 13, rx: 3, fill: "var(--ink)" }, g);
+    const r = el("text", { x: -SZ / 2 + 9.5, y: SZ / 2 - 5.5, "text-anchor": "middle", style: "fill:var(--bg);font-size:10px;font-weight:700" }, g); r.textContent = "R";
+  }
+  hook(g, () => tipStep(i), () => jump(i), s);
+});
+hook(og, tipOrigin, () => jump(-1));
+
+// legend
+const L = 868;
+el("rect", { x: 20, y: L - 11, width: 14, height: 14, rx: 3, fill: "none", stroke: "var(--ta)", "stroke-width": 3 }); txt(40, L, "type A", "", "start");
+el("rect", { x: 100, y: L - 11, width: 14, height: 14, rx: 3, fill: "none", stroke: "var(--tb)", "stroke-width": 3 }); txt(120, L, "type B", "", "start");
+el("rect", { x: 180, y: L - 11, width: 14, height: 14, rx: 3, fill: "none", stroke: "var(--muted)", "stroke-width": 3, "stroke-dasharray": "4 3" }); txt(200, L, "no picture of its own", "", "start");
+el("rect", { x: 350, y: L - 11, width: 13, height: 13, rx: 3, fill: "var(--ink)" }); txt(356.5, L - 1, "R", "", "middle", "fill:var(--bg);font-size:10px;font-weight:700"); txt(370, L, "reply (others are quotes)", "", "start");
+
+function hook(g, render, go, s) {
+  g.addEventListener("pointerenter", () => show(g, render, s));
+  g.addEventListener("pointerleave", e => { if (e.pointerType !== "touch") hide(); });
+  g.addEventListener("focus", () => show(g, render, s));
+  g.addEventListener("blur", hide);
+  g.addEventListener("click", e => { if (e.pointerType === "touch" || matchMedia("(hover: none)").matches) show(g, render, s); else go(); });
+  g.addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+}
+function jump(i) { hide(); (i < 0 ? document.querySelector(".origin") : document.getElementById("s" + i)).scrollIntoView({ behavior: "smooth" }); }
+function hide() { tip.classList.remove("show"); svg.querySelectorAll(".on").forEach(e => e.classList.remove("on")); }
+function tipStep(i) {
+  const s = S[i], d = s.details;
+  const row = (k, v, cls) => v ? `<div class="k">${k}</div><div class="${cls}"><span>${esc(v)}</span></div>` : "";
+  const dd = [
+    ["Account", who(s)],
+    ["Audience", `${fol(s.author_followers)} followers · ${fol(d.posts)} posts`],
+    ["Posted", `${utc(s.createdAt)}<br>${ago(s.createdAt)}`],
+    [s.kind === "reply" ? "Replies to" : s.kind === "quote" ? "Quotes" : "Kind", d.parent ? `“${esc(d.parent.text.slice(0, 70)) || "(no text)"}”` : "entry post"],
+    ["Engagement", `♥ ${s.likeCount} · ↻ ${s.repostCount} · 💬 ${d.replyCount ?? "?"} · quoted ${s.quoteCount}`],
+    ["Alt text", d.images.length ? (esc(d.images[0].alt) || "<i>none</i>") : "<i>no own image</i>"],
+    ["Picked by", esc(s.picked_by)],
+  ];
+  return `<img src="${s.image_path_or_url}" alt="">
+    <div class="meta"><span class="typetag ${s.type}">${TYPE[s.type]}</span>Step ${i + 1} · ${s.kind === "root" ? "entry post" : s.kind}</div>
+    <div class="tt">${esc(s.title)}</div>
+    <p class="q">${s.text ? esc(s.text) : "<i>(no caption)</i>"}</p>
+    <div class="kal">${row("Kept", s.kept, "kept")}${row("Added", s.added, "added")}${row("Lost", s.lost, "lost")}</div>
+    <div class="dd">${dd.map(([k, v]) => `<span>${k}</span><b>${v}</b>`).join("")}</div>
+    <a class="go" href="#s${i}">Read step ${i + 1} →</a>`;
+}
+function tipOrigin() {
+  return M.origin.map(o => `<div class="meta">${esc(o.platform)} · ${utc(o.createdAt)}</div>
+    <div class="tt">${esc(o.title)}${SHOW_HANDLES ? ": @" + esc(o.handle) : ""}</div>
+    ${o.text ? `<p class="q">${esc(o.text)}</p>` : ""}
+    <div class="meta">${esc(o.facts[1] || o.facts[0])}</div>`).join("<hr style='border:0;border-top:1px solid var(--line);margin:8px 0'>");
+}
+function show(g, render, s) {
+  svg.querySelectorAll(".on").forEach(e => e.classList.remove("on"));
+  g.classList.add("on");
+  for (let q = s; q && edges[rk(q)]; q = S[byId[q.parent_id]]) edges[rk(q)].classList.add("on");
+  tip.innerHTML = render();
+  const r = g.getBoundingClientRect(), W = innerWidth, H = innerHeight;
+  tip.classList.add("show");
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  let left = r.right + 10;
+  if (left + tw > W - 8) left = r.left - tw - 10;
+  if (left < 8) left = Math.max(8, (W - tw) / 2);
+  let top = r.top + r.height / 2 - th / 2;
+  top = Math.max(8, Math.min(top, H - th - 8));
+  tip.style.left = left + "px"; tip.style.top = top + "px";
+}
+document.addEventListener("pointerdown", e => { if (!e.target.closest(".node, .mk, .thumb, #tip")) hide(); });
+addEventListener("scroll", () => { if (!matchMedia("(hover: none)").matches) hide(); }, { passive: true });
+// ---------- shared: small thumbnail that opens the hover card ----------
+function thumb(i) {
+  const s = S[i];
+  return `<span class="thumb ${s.type}" data-i="${i}" tabindex="0"><img src="${s.image_path_or_url}" alt=""><b>${i + 1}</b></span>`;
+}
+function wireThumbs(root) { root.querySelectorAll(".thumb").forEach(t => { const i = +t.dataset.i; hook(t, () => tipStep(i), () => jump(i), S[i]); }); }
+const linkOf = s => s.kind === "root" ? "screenshot from X (entry post)" : s.kind === "post" ? "separate post, no link"
+  : s.kind === "quote" ? (s.depth > 1 ? "quote of a quote" : "quote") : (s.depth > 1 ? "reply to a reply" : "reply");
+const phaseOf = s => { const m = (Date.parse(s.createdAt) - t0) / 60000;
+  return m < 0 ? "before the biggest entry post" : m < 60 ? "first hour" : m < 1440 ? "first day" : m < 4320 ? "days 2–3" : "long tail"; };
+const reachOf = s => (s.author_followers || 0) >= 10000 ? "over 10k followers" : (s.author_followers || 0) >= 1000 ? "1k–10k followers" : "under 1k followers";
+const facetOf = (s, key) => key === "type" ? ({ A: "Type A · picture-based", B: "Type B · topic-based", root: "entry (screenshot)" })[s.type]
+  : key === "link" ? linkOf(s) : key === "phase" ? phaseOf(s) : key === "reach" ? reachOf(s) : (s.facets[key] || "—");
+
+// ---------- how a post can link ----------
+(() => {
+  const L = M.links, idx = f => S.map((s, i) => [s, i]).filter(([s]) => f(s)).map(([, i]) => i);
+  const cards = [
+    ["♥", "Like", L.likes, "--muted", "Agrees silently. Adds nothing and passes nothing on.", "count only", []],
+    ["↻", "Repost", L.reposts, "--muted", "Pushes the same post to the reposter's followers. No new content, so no new version.", "count only (who, but not when)", []],
+    ["❝", "Quote", L.quotes, "--kq", `Embeds the post and adds words or a new picture. ${L.quotes_listed} listed on the biggest entry post; collected down to ${L.quote_max_depth} steps.`, "traced by API", idx(s => s.kind === "quote" && s.depth === 1)],
+    ["❝❝", "Quote of a quote", L.quotes_deep, "--kq", "A chain: each step points to the one before it, not to the original.", "traced by API", idx(s => s.kind === "quote" && s.depth > 1)],
+    ["↳", "Reply", L.replies, "--kr", `A comment in the thread. ${L.replies_listed} listed, ${L.replies} still visible. Most picture edits (type A) live here.`, "traced by API", idx(s => s.kind === "reply" && s.depth === 1)],
+    ["↳↳", "Reply to a reply", L.replies_deep, "--kr", `Builds on another reply, not the original. Threads go ${L.reply_max_depth} levels deep.`, "traced by API", idx(s => s.kind === "reply" && s.depth > 1)],
+    ["⋯", "Separate post, no link", L.independent, "--ki", "Uses the sentence with no link back. Invisible to quote and reply tracing; found only by searching the text (posts with the text only inside an image are missed).", "found by text search", idx(s => s.kind === "post")],
+    ["⇢", "Links to another copy", L.other_entry, "--ko", "Quotes or replies to a different copy of the meme, such as the second entry point (188 quotes).", "found by text search", []],
+    ["▣", "Screenshot from another platform", "X → Bluesky", "--ink", "The link is a picture of a post. No API can follow it; the X author survives only as pixels.", "by eye only", idx(s => s.kind === "root" || s.facets.builds_on === "the X-post frame" || (s.kind === "post" && s.type === "root"))],
+  ];
+  const box2 = document.getElementById("links");
+  box2.innerHTML = cards.map(([ic, name, n, c, desc, tr, ex]) => `
+    <div class="lcard" style="--c:var(${c})"><div class="ic">${ic}</div><h3>${name}</h3>
+      <div class="num">${typeof n === "number" ? n.toLocaleString() : n}</div>
+      <p>${desc}</p><p class="tr"><b>How we find it:</b> ${tr}</p>
+      ${ex.length ? `<div class="thumbs">${ex.map(thumb).join("")}</div>` : ""}</div>`).join("");
+  wireThumbs(box2);
+})();
+
+// ---------- timeline ----------
+(() => {
+  const tl = document.getElementById("tl");
+  const E = (tag, a, p) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); (p || tl).appendChild(e); return e; };
+  const T = (x, y, s, anchor, style) => { const t = E("text", { x, y, "text-anchor": anchor || "middle" }); if (style) t.setAttribute("style", style); t.textContent = s; return t; };
+  const KINDS = [["quote", "--kq", "quote"], ["reply", "--kr", "reply"], ["independent", "--ki", "separate post"], ["other-entry", "--ko", "links to another copy"]];
+  const START = -720, END = 3600, X0 = 46, X1 = 650, TX0 = 680, TX1 = 845;
+  const xm = m => X0 + (m - START) / (END - START) * (X1 - X0);
+  // place the story markers first (in their own band), then size the chart below them
+  const monthKey0 = d => d.getUTCFullYear() * 12 + d.getUTCMonth();
+  const tailMonths = M.timeline.filter(([m]) => m >= END).map(([m]) => monthKey0(new Date(t0 + m * 60000)));
+  const mF = Math.min(...tailMonths), mL = Math.max(...tailMonths), twF = (TX1 - TX0) / (mL - mF + 1);
+  const rows = [], marks = S.map((s, i) => {
+    const m = (Date.parse(s.createdAt) - t0) / 60000;
+    const x = m < END ? xm(m) : TX0 + (monthKey0(new Date(s.createdAt)) - mF + .5) * twF;
+    let row = 0; while ((rows[row] || []).some(px => Math.abs(px - x) < 21)) row++;
+    (rows[row] = rows[row] || []).push(x);
+    return { i, x, row };
+  });
+  const TOP = 50 + rows.length * 22 + 40, BASE = TOP + 150;
+  tl.setAttribute("viewBox", `0 0 860 ${BASE + 56}`);
+  const empty = () => ({ quote: 0, reply: 0, independent: 0, "other-entry": 0 });
+  const bins = Array.from({ length: (END - START) / 60 }, empty);
+  const tail = {};
+  const monthKey = d => d.getUTCFullYear() * 12 + d.getUTCMonth();
+  M.timeline.forEach(([m, k]) => {
+    if (m >= START && m < END) bins[Math.floor((m - START) / 60)][k]++;
+    else if (m >= END) { const key = monthKey(new Date(t0 + m * 60000)); (tail[key] = tail[key] || empty())[k]++; }
+  });
+  const sum = b => Object.values(b).reduce((a, c) => a + c, 0);
+  const maxH = Math.max(...bins.map(sum));
+  const bw = (X1 - X0) / bins.length;
+  bins.forEach((b, i) => { let y = BASE; KINDS.forEach(([k, c]) => { const h = b[k] / maxH * (BASE - TOP); if (h) { E("rect", { x: X0 + i * bw + .5, y: y - h, width: bw - 1, height: h, fill: `var(${c})` }); y -= h; } }); });
+  // day / half-day lines (UTC)
+  for (let d = Math.ceil((t0 + START * 60000) / 432e5) * 432e5; d < t0 + END * 60000; d += 432e5) {
+    const x = xm((d - t0) / 60000), midnight = new Date(d).getUTCHours() === 0;
+    E("line", { x1: x, x2: x, y1: TOP - 6, y2: BASE, stroke: "var(--line)", "stroke-dasharray": midnight ? "" : "2 3" });
+    T(x, BASE + 14, midnight ? new Date(d).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" }) : "12:00");
+  }
+  E("line", { x1: X0, x2: X1, y1: BASE, y2: BASE, stroke: "var(--muted)" });
+  T(X0 - 6, TOP + 4, maxH + "/h", "end"); T(X0 - 6, BASE, "0", "end");
+  T(X0, BASE + 30, "first 3 days, posts per hour (UTC)", "start");
+  // tail: per month, own scale
+  const months = Object.keys(tail).map(Number).sort((a, b) => a - b);
+  const mFirst = months[0], mLast = months[months.length - 1], tw = (TX1 - TX0) / (mLast - mFirst + 1);
+  const maxT = Math.max(...months.map(k => sum(tail[k])));
+  months.forEach(k => { let y = BASE; KINDS.forEach(([kk, c]) => { const h = tail[k][kk] / maxT * (BASE - TOP); if (h) { E("rect", { x: TX0 + (k - mFirst) * tw + .3, y: y - h, width: Math.max(tw - .6, 1), height: h, fill: `var(${c})` }); y -= h; } }); });
+  E("line", { x1: TX0, x2: TX1, y1: BASE, y2: BASE, stroke: "var(--muted)" });
+  const mName = k => new Date(Date.UTC(Math.floor(k / 12), k % 12, 1)).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", year: "numeric" });
+  T(TX0, BASE + 14, mName(mFirst), "start"); T(TX1, BASE + 14, mName(mLast), "end");
+  T(TX0, BASE + 30, `later, per month (max ${maxT})`, "start");
+  T(TX0 - 15, (TOP + BASE) / 2, "⋯", "middle", "font-size:18px");
+  // key moments
+  const firstM = M.timeline[0][0];
+  [[firstM, "first on Bluesky (Jan 13, 21:05)", -28], [0, "biggest entry post (Jan 14, 07:47)", -14]].forEach(([m, lab, dy]) => {
+    E("line", { x1: xm(m), x2: xm(m), y1: TOP + dy + 4, y2: BASE, stroke: "var(--accent)", "stroke-width": 1.5 });
+    T(xm(m) + 4, TOP + dy, lab, "start", "fill:var(--accent);font-weight:600");
+  });
+  T(X0, 14, "← on X before this: image Dec 30, 2024 · caption Jan 12, 2025", "start", "font-weight:600");
+  // markers for the story's versions
+  const defs = E("defs", {}); E("circle", { r: 10, cx: 0, cy: 0 }, E("clipPath", { id: "mc" }, defs));
+  T(X0, 40, "versions in this story", "start");
+  marks.forEach(({ i, x, row }) => {
+    const s = S[i];
+    const y = 58 + row * 22;
+    const col = s.type === "A" ? "var(--ta)" : s.type === "B" ? "var(--tb)" : "var(--ink)";
+    E("line", { x1: x, x2: x, y1: y + 10, y2: BASE, stroke: col, opacity: .18 });
+    const g = E("g", { class: "mk", transform: `translate(${x},${y})`, tabindex: 0 });
+    E("image", { href: s.image_path_or_url, x: -10, y: -10, width: 20, height: 20, preserveAspectRatio: "xMidYMid slice", "clip-path": "url(#mc)" }, g);
+    E("circle", { r: 10, fill: "none", stroke: col, "stroke-width": 2.5 }, g);
+    hook(g, () => tipStep(i), () => jump(i), s);
+  });
+  // legend
+  let lx = X0;
+  KINDS.forEach(([k, c, lab]) => { E("rect", { x: lx, y: BASE + 36, width: 10, height: 10, fill: `var(${c})` }); T(lx + 14, BASE + 45, lab, "start"); lx += 14 + lab.length * 6.2 + 18; });
+})();
+
+// ---------- other ways to sort ----------
+(() => {
+  const bar = document.getElementById("facetbar"), grid = document.getElementById("facetgrid"), q = document.getElementById("facetq");
+  bar.innerHTML = M.facets.map(f => `<button data-k="${f.key}">${esc(f.label)}</button>`).join("");
+  function draw(key) {
+    bar.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.k === key));
+    q.textContent = M.facets.find(f => f.key === key).q;
+    const groups = {};
+    S.forEach((s, i) => (groups[facetOf(s, key)] = groups[facetOf(s, key)] || []).push(i));
+    const order = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+    grid.innerHTML = order.map(v => `<div class="fcol"><h4>${esc(v)}</h4><div class="meta">${groups[v].length} version${groups[v].length > 1 ? "s" : ""}</div><div class="thumbs">${groups[v].map(thumb).join("")}</div></div>`).join("");
+    wireThumbs(grid);
+  }
+  bar.addEventListener("click", e => { const b = e.target.closest("button"); if (b) draw(b.dataset.k); });
+  draw("link");
+})();
+
+</script>
+</body>
+</html>

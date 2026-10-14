@@ -1,0 +1,21 @@
+# --- Collected data: real people's posts, handles and images. Keep it off GitHub until IRB is clear. ---
+# Rebuild with the scripts in scripts/ (see NOTES.md).
+data/images/
+data/*_all.json
+data/picks.json
+data/chain_data.js
+data/meme_chain.js
+data/meme_chain.json
+
+# --- Papers, drafts and screenshots (large, or other people's work) ---
+*.pdf
+*.docx
+*.pptx
+/*.png
+specialization/
+
+# --- System / Python ---
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

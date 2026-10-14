@@ -1,0 +1,12 @@
+# Paste one Bluesky post link per line (Copy link to post).
+# Lines starting with # are ignored. You can add a note after the link with  |  e.g.
+#   https://bsky.app/profile/x.bsky.social/post/abc | template branch
+https://bsky.app/profile/20xt6.bsky.social/post/3lfpddcditc2s | edits the original image: heaven -> hell
+https://bsky.app/profile/jangineer.bsky.social/post/3lfpcv4jet22b
+https://bsky.app/profile/momchomsky.bsky.social/post/3lfptvbvsfc2q
+https://bsky.app/profile/jimtews.com/post/3lfpvmdddns24
+https://bsky.app/profile/meatdata.bsky.social/post/3lfou6mr3622i
+https://bsky.app/profile/colin.hoagie.fun/post/3lfsew5pkd22g | type B: topic-based
+https://bsky.app/profile/sraars.comrades.social/post/3lfryhmn7tk2v | type B: topic-based
+https://bsky.app/profile/geftokingmongoose.bsky.social/post/3lfnnswiv6s2f | (added by Claude) a second, separate entry point on Bluesky
+https://bsky.app/profile/fernballew.bsky.social/post/3lfnnbeml3224 | (added by Claude) earliest Bluesky post found

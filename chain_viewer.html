@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meme Chain Viewer</title>
+<style>
+  :root {
+    --bg: #f6f4ef; --panel: #ffffff; --ink: #1d1b18; --muted: #6f6a62; --line: #ddd8ce;
+    --kept: #2f7d5b; --edited: #c98a1b; --new: #b8433a; --none: #9a958c; --accent: #3550c8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161513; --panel: #201f1c; --ink: #ece8e1; --muted: #9c968c; --line: #35332f;
+      --kept: #5cbf8f; --edited: #e3ac45; --new: #e46f63; --none: #77736b; --accent: #8ea2ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 20px 24px 8px; }
+  h1 { margin: 0 0 4px; font-size: 22px; }
+  .sub { color: var(--muted); max-width: 820px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+  .stat b { font-size: 17px; margin-right: 4px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; padding: 6px 24px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; margin-right: 12px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 16px; padding: 8px 24px 16px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; padding: 8px 16px; } header, .controls { padding-left: 16px; padding-right: 16px; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  #mapwrap { overflow-x: auto; }
+  svg text { fill: var(--muted); font-size: 11px; }
+  .lane-label { font-weight: 600; fill: var(--ink); }
+  .node { cursor: pointer; }
+  .node:hover { opacity: 1 !important; }
+  #detail { padding: 14px; position: sticky; top: 10px; align-self: start; max-height: calc(100vh - 20px); overflow-y: auto; }
+  #detail h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 14px 0 6px; }
+  #detail h2:first-child { margin-top: 0; }
+  .bigimg { width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; }
+  .imgnote { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .posttext { white-space: pre-wrap; font-size: 15px; margin: 8px 0; }
+  .meta { color: var(--muted); font-size: 12px; }
+  .badge { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 99px; color: #fff; margin-right: 4px; }
+  .chainstep { display: flex; gap: 8px; align-items: center; padding: 6px; border-radius: 8px; cursor: pointer; }
+  .chainstep:hover { background: var(--bg); }
+  .chainstep.current { outline: 2px solid var(--accent); }
+  .chainstep img, .chainstep .noimg { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; flex: none; background: var(--line); }
+  .chainstep .t { font-size: 12px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .arrow { font-size: 11px; color: var(--muted); padding-left: 56px; }
+  .kal { display: grid; grid-template-columns: 58px 1fr; gap: 3px 8px; font-size: 13px; }
+  .kal b { color: var(--muted); font-weight: 600; }
+  .bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 3px 0 8px; }
+  .bar i { display: block; height: 100%; background: var(--accent); }
+  a { color: var(--accent); }
+  #gallery { padding: 0 24px 30px; }
+  #gallery h2 { font-size: 16px; margin: 6px 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; }
+  .grid img.sel { border-color: var(--accent); }
+  .grid img.kept { box-shadow: 0 0 0 2px var(--kept) inset; }
+  @media (max-width: 900px) { #gallery { padding: 0 16px 30px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>“Leaked photo of heaven”: how one meme changed</h1>
+  <div class="sub">Starting post on Bluesky (Jan 14, 2025) and every quote post of it, down to quotes of quotes.
+    Left to right is time since the original; top to bottom is how many steps away from the original.
+    Inside each row, posts near the top kept the original caption and posts near the bottom wrote something new.
+    Click any post to see its chain. <a href="demo.html">← Back to the 19-step story</a></div>
+  <div class="stats" id="stats"></div>
+</header>
+<div class="controls">
+  <label><input type="checkbox" id="onlyImg"> Only posts with their own image</label>
+  <label><input type="checkbox" id="showInf" checked> Ring around big accounts (≥10k followers)</label>
+  <div class="legend">
+    Caption vs original:
+    <span><i class="dot" style="background:var(--kept)"></i>kept</span>
+    <span><i class="dot" style="background:var(--edited)"></i>edited</span>
+    <span><i class="dot" style="background:var(--new)"></i>new</span>
+    <span><i class="dot" style="background:var(--none)"></i>no text</span>
+  </div>
+</div>
+<main>
+  <div class="card" id="mapwrap"><svg id="map"></svg></div>
+  <aside class="card" id="detail"></aside>
+</main>
+<section id="gallery">
+  <h2>Every new image people attached (oldest first)</h2>
+  <div class="sub" style="margin-bottom:8px">Green outline = kept the “Leaked photo of heaven” caption but swapped the picture.</div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<script src="data/chain_data.js"></script>
+<script>
+const posts = window.CHAIN;
+const byId = Object.fromEntries(posts.map(p => [p.id, p]));
+const root = posts[0];
+const t0 = Date.parse(root.createdAt);
+const INF = 10000;
+const COLOR = { kept: "var(--kept)", edited: "var(--edited)", new: "var(--new)", none: "var(--none)", original: "var(--ink)" };
+posts.forEach(p => { p.mins = Math.max(0, (Date.parse(p.createdAt) - t0) / 60000); p.children = []; });
+posts.forEach(p => { if (p.parent_id && byId[p.parent_id]) byId[p.parent_id].children.push(p); });
+
+const fmtAgo = m => m < 60 ? Math.round(m) + " min" : m < 1440 ? (m / 60).toFixed(1) + " h" : Math.round(m / 1440) + " days";
+const fmtN = n => n == null ? "?" : n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "k" : n;
+const esc = s => (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ownImg = p => p.images.length && p.images[0].local ? p.images[0].local : null;
+
+// ---------- stats ----------
+const nNew = posts.filter(p => p.image_status === "new").length;
+const nTemplate = posts.filter(p => ["kept", "edited"].includes(p.caption_status) && p.image_status === "new").length;
+const depthMax = Math.max(...posts.map(p => p.depth));
+document.getElementById("stats").innerHTML = [
+  [posts.length - 1, "quote posts"], [nNew, "attached a new image"],
+  [nTemplate, "kept the caption, swapped the image"], [depthMax, "steps deep at most"],
+  [posts.filter(p => (p.author_followers || 0) >= INF).length, "from big accounts"]
+].map(([n, l]) => `<div class="stat"><b>${n}</b>${l}</div>`).join("");
+
+// ---------- map ----------
+const svg = document.getElementById("map");
+const NS = "http://www.w3.org/2000/svg";
+const W = 1000, L = 90, R = 20;
+const lanes = [{ d: 0, h: 70 }, { d: 1, h: 330 }, { d: 2, h: 150 }, { d: 3, h: 90 }];
+let y = 30; lanes.forEach(l => { l.y = y; y += l.h; });
+const H = y + 30;
+const maxM = Math.max(...posts.map(p => p.mins));
+const xOf = m => L + (W - L - R) * Math.log10(1 + m) / Math.log10(1 + maxM);
+function hashJitter(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0; return ((h >>> 0) % 1000) / 1000; }
+posts.forEach(p => {
+  const lane = lanes.find(l => l.d === p.depth);
+  const sim = p.caption_status === "none" ? 0 : p.text_sim_root;
+  const pad = p.depth === 0 ? lane.h / 2 : 14;
+  p.x = xOf(p.mins);
+  p.y = p.depth === 0 ? lane.y + lane.h / 2
+       : lane.y + pad + (1 - sim) * (lane.h - 2 * pad) * 0.85 + hashJitter(p.id) * (lane.h - 2 * pad) * 0.15;
+});
+
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; }
+let selected = root;
+
+function draw() {
+  const onlyImg = document.getElementById("onlyImg").checked;
+  const showInf = document.getElementById("showInf").checked;
+  svg.innerHTML = "";
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  const defs = el("defs", {}, svg);
+  el("circle", { r: 13, cx: 0, cy: 0 }, el("clipPath", { id: "clip" }, defs));
+
+  // lanes + time axis
+  lanes.forEach((l, i) => {
+    el("rect", { x: L, y: l.y, width: W - L - R, height: l.h, fill: i % 2 ? "var(--bg)" : "none", opacity: .6 }, svg);
+    const t = el("text", { x: 8, y: l.y + 16, class: "lane-label" }, svg);
+    t.textContent = l.d === 0 ? "Original" : l.d === 1 ? "Quote" : `Quote ×${l.d}`;
+    if (l.d > 0) {
+      el("text", { x: 8, y: l.y + 32 }, svg).textContent = "caption kept ↑";
+      el("text", { x: 8, y: l.y + l.h - 6 }, svg).textContent = "new text ↓";
+    }
+  });
+  [["10 min", 10], ["1 h", 60], ["6 h", 360], ["1 day", 1440], ["1 week", 10080], ["1 month", 43200], ["1 year", 525600]]
+    .filter(([, m]) => m <= maxM).forEach(([lab, m]) => {
+      el("line", { x1: xOf(m), x2: xOf(m), y1: 24, y2: H - 22, stroke: "var(--line)" }, svg);
+      el("text", { x: xOf(m), y: H - 8, "text-anchor": "middle" }, svg).textContent = lab;
+    });
+  el("text", { x: L, y: 16 }, svg).textContent = "time after the original →";
+
+  const visible = p => !onlyImg || p === root || ownImg(p) || p.children.some(c => visible(c));
+  const path = new Set(); for (let p = selected; p; p = byId[p.parent_id]) path.add(p.id);
+
+  // edges
+  posts.forEach(p => {
+    const par = byId[p.parent_id]; if (!par || !visible(p)) return;
+    const on = path.has(p.id);
+    el("path", {
+      d: `M${par.x},${par.y} C${(par.x + p.x) / 2},${par.y} ${(par.x + p.x) / 2},${p.y} ${p.x},${p.y}`,
+      fill: "none", stroke: on ? "var(--accent)" : "var(--muted)", "stroke-width": on ? 2.5 : 1, opacity: on ? 1 : (p.depth > 1 ? .35 : .03)
+    }, svg);
+  });
+
+  // nodes: images drawn last so they sit on top
+  const ordered = posts.filter(visible).sort((a, b) => (!!ownImg(a)) - (!!ownImg(b)));
+  ordered.forEach(p => {
+    const g = el("g", { class: "node", transform: `translate(${p.x},${p.y})`, opacity: path.has(p.id) ? 1 : .85 }, svg);
+    const big = showInf && (p.author_followers || 0) >= INF;
+    const img = ownImg(p);
+    if (img) {
+      el("image", { href: img, x: -13, y: -13, width: 26, height: 26, preserveAspectRatio: "xMidYMid slice", "clip-path": "url(#clip)" }, g);
+      el("circle", { r: 13, fill: "none", stroke: COLOR[p.caption_status], "stroke-width": 2.5 }, g);
+    } else {
+      el("circle", { r: p === root ? 9 : 4, fill: COLOR[p.caption_status], opacity: .8 }, g);
+    }
+    if (big) el("circle", { r: img ? 17 : 8, fill: "none", stroke: "var(--ink)", "stroke-width": 1.5, "stroke-dasharray": "3 2" }, g);
+    if (p === selected) el("circle", { r: img ? 19 : 9, fill: "none", stroke: "var(--accent)", "stroke-width": 3 }, g);
+    el("title", {}, g).textContent = `@${p.author_handle} · ${fmtAgo(p.mins)} after\n${p.text.slice(0, 120)}`;
+    g.addEventListener("click", () => select(p));
+  });
+}
+
+// ---------- detail ----------
+function stepChange(p) {
+  if (p === root) return "";
+  const img = { inherited: "same image (quoted)", same: "re-uploaded the same image", new: "<b>new image</b>" }[p.image_status];
+  const cap = { kept: "kept caption", edited: "edited caption", new: "new text", none: "no text" }[p.caption_status];
+  return `↓ ${img} · ${cap}`;
+}
+function kal(p) {
+  if (p === root) return { kept: "—", added: "Shared a screenshot of an X post, with the caption and an (apparently AI-made) image", lost: "The X post's link, its author's context and any sign the image is AI-made are not attached" };
+  const kept = [], added = [], lost = [];
+  if (p.image_status === "inherited") kept.push("the image (by quoting)");
+  if (p.image_status === "same") kept.push("the image (re-uploaded)");
+  if (p.image_status === "new") { added.push("a different image"); lost.push("the original heaven image"); }
+  if (p.caption_status === "kept") kept.push("the caption, word for word");
+  if (p.caption_status === "edited") { kept.push("part of the caption"); added.push("changed wording"); }
+  if (p.caption_status === "new") added.push("their own comment");
+  if (p.image_status === "new" && p.caption_status !== "new") lost.push("the link between caption and the original picture");
+  return { kept: kept.join("; ") || "—", added: added.join("; ") || "—", lost: lost.join("; ") || "nothing obvious" };
+}
+function select(p) {
+  selected = p;
+  const chain = []; for (let q = p; q; q = byId[q.parent_id]) chain.unshift(q);
+  const k = kal(p);
+  const shown = p.eff_image;
+  const textDrift = p === root ? 0 : 1 - (p.caption_status === "none" ? 0 : p.text_sim_root);
+  const imgDrift = p.img_dist_root ?? 0;
+  const big = (p.author_followers || 0) >= INF;
+  document.getElementById("detail").innerHTML = `
+    <h2>Chain from the original</h2>
+    ${chain.map((q, i) => `
+      ${i ? `<div class="arrow">${stepChange(q)}</div>` : ""}
+      <div class="chainstep ${q === p ? "current" : ""}" data-id="${q.id}">
+        ${ownImg(q) ? `<img src="${ownImg(q)}" alt="">` : `<div class="noimg"></div>`}
+        <div><div class="meta">${q === root ? "original" : "step " + i} · ${fmtAgo(q.mins)}</div><div class="t">${esc(q.text) || "<i>(no text)</i>"}</div></div>
+      </div>`).join("")}
+    <h2>This post</h2>
+    ${shown ? `<img class="bigimg" src="${shown}" alt="${esc(p.images[0]?.alt || "")}">` : ""}
+    <div class="imgnote">${p.image_status === "inherited" ? "No image of its own: readers see the quoted post's image." : esc(p.images[0]?.alt) ? "Alt text: " + esc(p.images[0].alt) : ""}</div>
+    <div class="posttext">${esc(p.text) || "<i>(no text)</i>"}</div>
+    <div class="meta">
+      <span class="badge" style="background:${COLOR[p.caption_status]}">caption: ${p.caption_status}</span>
+      <span class="badge" style="background:var(--accent)">image: ${p.image_status}</span><br>
+      @${esc(p.author_handle)} · <b>${fmtN(p.author_followers)}</b> followers ${big ? "· <b>big account</b>" : ""}<br>
+      ${new Date(p.createdAt).toLocaleString()} · ${fmtAgo(p.mins)} after the original<br>
+      ♥ ${fmtN(p.likeCount)} · ↻ ${fmtN(p.repostCount)} · quoted ${p.quoteCount}× · replies ${p.replyCount}<br>
+      <a href="${p.url}" target="_blank" rel="noopener">Open on Bluesky ↗</a>
+    </div>
+    <h2>Kept / added / lost <span style="text-transform:none;font-weight:400">(auto, rough)</span></h2>
+    <div class="kal"><b>Kept</b><span>${k.kept}</span><b>Added</b><span>${k.added}</span><b>Lost</b><span>${k.lost}</span></div>
+    <h2>Drift from the original <span style="text-transform:none;font-weight:400">(simple first version)</span></h2>
+    <div class="meta">Caption drift ${textDrift.toFixed(2)}</div><div class="bar"><i style="width:${textDrift * 100}%"></i></div>
+    <div class="meta">Image drift ${imgDrift.toFixed(2)}</div><div class="bar"><i style="width:${imgDrift * 100}%"></i></div>
+    <div class="imgnote">0 = identical to the original, 1 = completely different. Caption: character overlap. Image: perceptual hash. To be replaced by sentence embeddings and CLIP.</div>
+  `;
+  document.querySelectorAll(".chainstep").forEach(e => e.onclick = () => select(byId[e.dataset.id]));
+  document.querySelectorAll("#grid img").forEach(e => e.classList.toggle("sel", e.dataset.id === p.id));
+  draw();
+}
+
+// ---------- gallery ----------
+document.getElementById("grid").innerHTML = posts.filter(p => ownImg(p))
+  .sort((a, b) => a.mins - b.mins)
+  .map(p => `<img src="${ownImg(p)}" data-id="${p.id}" class="${["kept", "edited"].includes(p.caption_status) && p.image_status === "new" ? "kept" : ""}" title="${esc(p.text.slice(0, 100))}" loading="lazy" alt="">`).join("");
+document.querySelectorAll("#grid img").forEach(e => e.onclick = () => { select(byId[e.dataset.id]); window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+document.getElementById("onlyImg").onchange = draw;
+document.getElementById("showInf").onchange = draw;
+select(root);
+</script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+{
+  "_about": "Hand-picked versions for demo.html: Charlotte's picks + Claude's picks, sorted into Charlotte's two types (Oct 7, 2026). Type A = picture-based (uses or edits the original picture/template). Type B = topic-based (keeps the sentence, brings a new picture). kept/added/lost/emotion are a DRAFT: check and edit, then run  python scripts/make_demo.py",
+  "origin": [
+    {
+      "platform": "X",
+      "handle": "six_papi",
+      "url": "https://x.com/six_papi/status/1873645919285231802",
+      "createdAt": "2024-12-30T08:22:52Z",
+      "title": "Earliest known post of the image",
+      "facts": [
+        "Date decoded from the X post ID.",
+        "Daily Dot says the AI image \"originates from\" this post. Whether this account made it, or with which tool, is not confirmed.",
+        "Post text and image not collected (X has no free API). Check by hand."
+      ],
+      "sources": [
+        [
+          "Daily Dot, Jan 16, 2025",
+          "https://dailydot.com/memes/leaked-photo-of-heaven-is-going-viral-on-social-media-meme/"
+        ]
+      ]
+    },
+    {
+      "platform": "X",
+      "handle": "pallnandi",
+      "display_name": "Nandi",
+      "url": "https://x.com/pallnandi/status/1878508686521331861",
+      "createdAt": "2025-01-12T18:25:46Z",
+      "title": "The caption is added",
+      "text": "Leaked photo of heaven is going viral on social media. No wonder Christians are so determined to get there! 😍",
+      "facts": [
+        "Date decoded from the X post ID. 13 days after the earliest known post; 37 hours before the Bluesky entry post.",
+        "Text read from the screenshot in the Bluesky entry post.",
+        "Reach as reported (not checked): 6.9M+ views, 2.6K+ quotes (Daily Dot, Jan 16, 2025); 7.1M views, 3,000 likes (Know Your Meme, Jan 17, 2025).",
+        "No credit to the earlier poster; nothing says the image is AI-made."
+      ],
+      "sources": [
+        [
+          "Daily Dot, Jan 16, 2025",
+          "https://dailydot.com/memes/leaked-photo-of-heaven-is-going-viral-on-social-media-meme/"
+        ],
+        [
+          "Know Your Meme, Jan 17, 2025",
+          "https://trending.knowyourmeme.com/editorials/guides/what-is-the-leaked-photo-of-heaven-meme-the-viral-twitter-posts-parodying-ai-generated-slop-explained"
+        ]
+      ]
+    }
+  ],
+  "acts": [
+    {
+      "id": 1,
+      "type": "root",
+      "title": "Arriving on Bluesky, more than once",
+      "summary": "The X post reached Bluesky several separate times, as typed-out text and as screenshots, starting Jan 13. The biggest entry post (step 3) came 10 hours after the first."
+    },
+    {
+      "id": 2,
+      "type": "A",
+      "title": "Type A · Edits the original picture",
+      "summary": "Picture-based. People work on the original picture or its X-post frame: recolor it, zoom into it, re-upload it, or forge the frame around a new picture."
+    },
+    {
+      "id": 3,
+      "type": "A",
+      "title": "Type A · Talks about the original picture",
+      "summary": "Picture-based. People keep looking at the original picture and argue about it: who took it, is it AI, what does it look like."
+    },
+    {
+      "id": 4,
+      "type": "B",
+      "title": "Type B · Keeps the sentence, brings a new picture",
+      "summary": "Topic-based. The sentence \"leaked photo of heaven is going viral\" becomes a template, and the original picture drops out."
+    },
+    {
+      "id": 5,
+      "type": "B",
+      "title": "Type B · Passed hand to hand",
+      "summary": "Quotes of quotes of quotes: each person keeps the template and swaps the picture again."
+    },
+    {
+      "id": 6,
+      "type": "B",
+      "title": "Long tail",
+      "summary": "Over a year later the template is still being used."
+    }
+  ],
+  "steps": [
+    {
+      "rkey": "3lfnnbeml3224",
+      "act": 1,
+      "type": "B",
+      "title": "Earliest found: already a parody",
+      "picked_by": "Claude",
+      "kept": "Nandi's caption, typed out as text",
+      "added": "A map of the Great Lakes as \"heaven\"",
+      "lost": "The original image; any credit to the X post",
+      "emotion": "deadpan",
+      "note": "Jan 13, 21:05 UTC: the earliest Bluesky post found with the sentence. 10.7 hours before the biggest entry post, and it is already topic-based.",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "a real place"
+      }
+    },
+    {
+      "rkey": "3lfnnswiv6s2f",
+      "act": 1,
+      "type": "root",
+      "title": "A second entry point",
+      "picked_by": "Claude",
+      "kept": "A screenshot of the X post (caption + image)",
+      "added": "A wordplay joke: \"dying to get there\"",
+      "lost": "No link to the X post",
+      "emotion": "wry",
+      "note": "Separate from the big entry post: no quote or reply link. 1,672 likes and 188 quotes, a second big tree that is not collected yet.",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "re-uploads it",
+        "stance": "jokes about the claim",
+        "heaven_becomes": "unchanged"
+      }
+    },
+    {
+      "rkey": "3lfor55ezxc2s",
+      "act": 1,
+      "title": "The Bluesky entry point",
+      "picked_by": "Claude",
+      "kept": "",
+      "added": "Re-posts a screenshot of an X post (caption + image) on Bluesky",
+      "lost": "No link to the X post; the image's creator and tool are not named; nothing says it is AI",
+      "emotion": "mock awe",
+      "ai_note": "Image widely called AI-generated (Daily Dot, Know Your Meme, replies). Tool and maker not confirmed.",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "re-uploads it",
+        "stance": "passes it on",
+        "heaven_becomes": "unchanged"
+      }
+    },
+    {
+      "rkey": "3lfpddcditc2s",
+      "act": 2,
+      "title": "Recolored: hell",
+      "picked_by": "Charlotte",
+      "image_change": "edited",
+      "kept": "The original picture and the X screenshot layout, including the 😍",
+      "added": "A red recolor; \"Hell\" scrawled over \"heaven\", \"Atheists\" over \"Christians\"",
+      "lost": "\"heaven\" and \"Christians\": crossed out, still faintly visible underneath",
+      "emotion": "mocking",
+      "note": "The only version found that edits the original picture itself. 223 likes.",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "edits it",
+        "stance": "inverts it",
+        "heaven_becomes": "its opposite (hell)"
+      }
+    },
+    {
+      "rkey": "3lfpl4wbxw22c",
+      "act": 2,
+      "title": "Re-uploaded, with alt text",
+      "picked_by": "Claude",
+      "kept": "The same screenshot",
+      "added": "Alt text naming the X poster; a joke reframing it as a \"15 minute city\"",
+      "lost": "",
+      "emotion": "sarcasm",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "re-uploads it",
+        "stance": "mocks / critiques",
+        "heaven_becomes": "unchanged"
+      }
+    },
+    {
+      "rkey": "3lfpvmdddns24",
+      "act": 2,
+      "title": "A forged screenshot",
+      "picked_by": "Charlotte",
+      "image_change": "reframed",
+      "kept": "The X post frame: Nandi's name, avatar, blue check, caption and 😍",
+      "added": "A different picture inside the frame: a dim video-game skatepark (looks like a Tony Hawk's Pro Skater level, unverified)",
+      "lost": "The heaven image, while still looking like the original post",
+      "emotion": "deadpan",
+      "note": "Looks like the original post but isn't. Same skate joke as the halfpipe thread, but replies to the original directly.",
+      "facets": {
+        "builds_on": "the X-post frame",
+        "picture": "swaps it inside the frame",
+        "stance": "plays along",
+        "heaven_becomes": "a game, film or book world"
+      }
+    },
+    {
+      "rkey": "3lfpcv4jet22b",
+      "act": 2,
+      "title": "Zoom in: a halfpipe",
+      "picked_by": "Charlotte",
+      "image_change": "cropped",
+      "kept": "The original pixels",
+      "added": "A close-up crop: one curved white wall now reads as a skate halfpipe",
+      "lost": "The view of the whole \"heaven\" city",
+      "emotion": "playful",
+      "note": "Close inspection turns the AI image's odd shapes into a new joke.",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "crops it",
+        "stance": "finds a new reading",
+        "heaven_becomes": "a hobby or treat"
+      }
+    },
+    {
+      "rkey": "3lfpfi5p7vk22",
+      "act": 3,
+      "title": "Spotting the AI's sources",
+      "picked_by": "Claude",
+      "kept": "",
+      "added": "A 1909 postcard of London's White City, as a possible source of the AI's look",
+      "lost": "The heaven framing (treats it as a machine copy)",
+      "emotion": "curious / skeptical",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "replaces it",
+        "stance": "calls out AI",
+        "heaven_becomes": "a real place"
+      }
+    },
+    {
+      "rkey": "3lfpslacrps2t",
+      "act": 3,
+      "title": "The biggest account",
+      "picked_by": "Claude",
+      "kept": "The image (quoted)",
+      "added": "A one-line deadpan joke to a very large audience",
+      "lost": "Any question of whether the picture is real",
+      "emotion": "deadpan humor",
+      "note": "316k followers, 3.9k likes: the most-liked quote. Its 8 quotes only add comments; none change the meme.",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "keeps it",
+        "stance": "jokes about the claim",
+        "heaven_becomes": "unchanged"
+      }
+    },
+    {
+      "rkey": "3lfpspvleck2b",
+      "act": 3,
+      "title": "Who took it?",
+      "picked_by": "Claude",
+      "kept": "The image (quoted)",
+      "added": "A provenance question: who took it, who leaked it",
+      "lost": "",
+      "emotion": "skeptical",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "keeps it",
+        "stance": "questions where it came from",
+        "heaven_becomes": "unchanged"
+      }
+    },
+    {
+      "rkey": "3lfpw25vj4c27",
+      "act": 3,
+      "title": "\"That's Star Wars\"",
+      "picked_by": "Claude",
+      "kept": "",
+      "added": "A still of Canto Bight (Star Wars), a look-alike city, as the \"real\" match",
+      "lost": "The heaven framing",
+      "emotion": "playful",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "replaces it",
+        "stance": "names a look-alike",
+        "heaven_becomes": "a game, film or book world"
+      }
+    },
+    {
+      "rkey": "3lfqvrewlrc22",
+      "act": 3,
+      "title": "\"Isn't this Final Fantasy?\"",
+      "picked_by": "Claude",
+      "kept": "",
+      "added": "Says it's an AI recreation of a Final Fantasy 8 city, with a screenshot (Esthar City) to compare",
+      "lost": "The heaven framing",
+      "emotion": "skeptical",
+      "facets": {
+        "builds_on": "the picture",
+        "picture": "replaces it",
+        "stance": "calls out AI",
+        "heaven_becomes": "a game, film or book world"
+      }
+    },
+    {
+      "rkey": "3lforjtez4k2e",
+      "act": 4,
+      "title": "First swap, 7 minutes in",
+      "picked_by": "Claude",
+      "kept": "The caption, word for word",
+      "added": "An unrelated reaction-meme photo (\"unbothered. moisturized.\")",
+      "lost": "The original image",
+      "emotion": "playful",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "another meme"
+      }
+    },
+    {
+      "rkey": "3lfou6mr3622i",
+      "act": 4,
+      "title": "Another religion's holy site",
+      "picked_by": "Charlotte",
+      "kept": "\"Leaked photo\"",
+      "added": "A real photo of the Masjid al-Haram in Mecca (watermark: Elbanota.Com)",
+      "lost": "\"of heaven\"; the Christian framing",
+      "emotion": "unclear: code by hand",
+      "note": "Tone is hard to read from the post alone (playful, pointed or sincere).",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "reframes religion",
+        "heaven_becomes": "a real place"
+      }
+    },
+    {
+      "rkey": "3lfozditffs2k",
+      "act": 4,
+      "title": "Cozy heaven",
+      "picked_by": "Claude",
+      "kept": "The caption",
+      "added": "A children's-book illustration (Pettersson and Findus farm)",
+      "lost": "The original image",
+      "emotion": "warm / wholesome",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "makes it personal",
+        "heaven_becomes": "something cozy or cute"
+      }
+    },
+    {
+      "rkey": "3lfphe6jsks2w",
+      "act": 4,
+      "title": "Flipped: hell",
+      "picked_by": "Claude",
+      "kept": "The sentence structure",
+      "added": "\"heaven\" → \"hell\"; an aerial photo of a dense city",
+      "lost": "The original image; the word heaven",
+      "emotion": "ironic",
+      "note": "City not identified for certain. It looks like São Paulo (unverified).",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "inverts it",
+        "heaven_becomes": "its opposite (hell)"
+      }
+    },
+    {
+      "rkey": "3lfpptucz222k",
+      "act": 4,
+      "title": "The caption becomes the meme",
+      "picked_by": "Claude",
+      "kept": "Every word of the caption",
+      "added": "A 4-panel reaction template (escalating shock), one phrase per panel",
+      "lost": "Any image of heaven at all",
+      "emotion": "mock excitement",
+      "note": "Most-liked image quote (171 likes). The sentence is now the content.",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "another meme"
+      }
+    },
+    {
+      "rkey": "3lfptvbvsfc2q",
+      "act": 4,
+      "title": "Crossover: Skate Heaven",
+      "picked_by": "Charlotte",
+      "kept": "The halfpipe idea from the zoomed-in version",
+      "added": "The \"Skate Heaven\" loading screen from Tony Hawk's Pro Skater 2 (per alt text)",
+      "lost": "The AI image entirely",
+      "emotion": "playful",
+      "note": "Crosses types: replies to a picture-based version (the halfpipe zoom) but brings a new picture, like the topic-based ones.",
+      "facets": {
+        "builds_on": "another version's joke",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "a game, film or book world"
+      }
+    },
+    {
+      "rkey": "3lfrczst6622h",
+      "act": 4,
+      "title": "Heaven is chaos",
+      "picked_by": "Claude",
+      "kept": "The caption",
+      "added": "A Warhammer map of the Realm of Chaos",
+      "lost": "The original image",
+      "emotion": "dark humor",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "a game, film or book world"
+      }
+    },
+    {
+      "rkey": "3lfryhmn7tk2v",
+      "act": 4,
+      "title": "Heaven is a buffet",
+      "picked_by": "both",
+      "kept": "The caption",
+      "added": "A Golden Corral buffet restaurant",
+      "lost": "The original image",
+      "emotion": "ironic",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "a hobby or treat"
+      }
+    },
+    {
+      "rkey": "3lfsew5pkd22g",
+      "act": 4,
+      "title": "Heaven is a ballpark",
+      "picked_by": "Charlotte",
+      "kept": "The caption, word for word",
+      "added": "A packed Phillies game at Citizens Bank Park, Philadelphia",
+      "lost": "The original image",
+      "emotion": "fond / fan pride",
+      "note": "Heaven becomes personal: your own favorite place.",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "makes it personal",
+        "heaven_becomes": "a hobby or treat"
+      }
+    },
+    {
+      "rkey": "3lfrs34zjq22i",
+      "act": 5,
+      "title": "Branch start: \"…on the internet\"",
+      "picked_by": "Claude",
+      "kept": "Most of the caption",
+      "added": "\"social media\" → \"the internet\"; a photo of the empty DashCon ball pit",
+      "lost": "The original image",
+      "emotion": "ironic",
+      "note": "98 likes. 6 more posts copy this exact wording.",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "another meme"
+      }
+    },
+    {
+      "rkey": "3lfrte4lcwk2p",
+      "act": 5,
+      "title": "Step 2: a toy dinosaur",
+      "picked_by": "Claude",
+      "kept": "The \"…on the internet\" wording",
+      "added": "Rexy, a battered toy dinosaur from a YouTube channel",
+      "lost": "The ball pit",
+      "emotion": "affectionate",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "makes it personal",
+        "heaven_becomes": "something cozy or cute"
+      }
+    },
+    {
+      "rkey": "3lfrtm45wqs22",
+      "act": 5,
+      "title": "Step 3: \"Heavenly\"",
+      "picked_by": "Claude",
+      "kept": "The \"…on the internet\" wording",
+      "added": "Pun: heaven → Heavenly, a 1990s UK pop band",
+      "lost": "The word heaven itself",
+      "emotion": "playful",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays with the words",
+        "heaven_becomes": "a pun"
+      }
+    },
+    {
+      "rkey": "3lfrsc5ub6c2i",
+      "act": 5,
+      "title": "Step 2 (other branch): puppies",
+      "picked_by": "Claude",
+      "kept": "The \"…on the internet\" wording",
+      "added": "10 golden retriever puppies on a beanbag",
+      "lost": "The ball pit",
+      "emotion": "wholesome",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "makes it personal",
+        "heaven_becomes": "something cozy or cute"
+      }
+    },
+    {
+      "rkey": "3lfrus2jjlk2h",
+      "act": 5,
+      "title": "Step 3: a bookshop",
+      "picked_by": "Claude",
+      "kept": "The \"…on the internet\" wording",
+      "added": "A photo of a narrow, book-lined shop aisle",
+      "lost": "The puppies",
+      "emotion": "wholesome",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "makes it personal",
+        "heaven_becomes": "something cozy or cute"
+      }
+    },
+    {
+      "rkey": "3mgk35oklv22f",
+      "act": 6,
+      "title": "14 months later",
+      "picked_by": "Claude",
+      "kept": "The caption",
+      "added": "Leyndell, a city from the game Elden Ring",
+      "lost": "The original image and the moment it reacted to",
+      "emotion": "playful",
+      "note": "Posted Mar 2026. Someone else used the same Elden Ring city on day one.",
+      "facets": {
+        "builds_on": "the sentence",
+        "picture": "replaces it",
+        "stance": "plays along",
+        "heaven_becomes": "a game, film or book world"
+      }
+    }
+  ],
+  "facets": [
+    {
+      "key": "type",
+      "label": "A / B type",
+      "q": "Picture-based or topic-based?"
+    },
+    {
+      "key": "link",
+      "label": "How it links",
+      "q": "How is it connected to what came before?"
+    },
+    {
+      "key": "builds_on",
+      "label": "Builds on",
+      "q": "What does it take from before?"
+    },
+    {
+      "key": "picture",
+      "label": "Does to the picture",
+      "q": "What happens to the picture?"
+    },
+    {
+      "key": "stance",
+      "label": "Stance",
+      "q": "What is the person doing with it?"
+    },
+    {
+      "key": "heaven_becomes",
+      "label": "Heaven becomes",
+      "q": "What does \"heaven\" turn into?"
+    },
+    {
+      "key": "phase",
+      "label": "When",
+      "q": "How long after the biggest entry post?"
+    },
+    {
+      "key": "reach",
+      "label": "Reach",
+      "q": "How big is the account?"
+    }
+  ]
+}
