@@ -116,6 +116,47 @@
   #facetbar { display: flex; flex-wrap: wrap; gap: 6px; }
   #facetbar button { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 5px 12px; cursor: pointer; }
   #facetbar button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  #layerbar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+              padding: 8px 0; background: var(--bg); font-size: 13px; color: var(--muted); }
+  #layerbar span { margin-right: 4px; }
+  #layerbar button { font: inherit; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 3px 10px; cursor: pointer; }
+  #layerbar button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .conctag { display: inline-block; font-size: 11px; font-weight: 600; border: 1px solid var(--ink); border-radius: 4px; padding: 0 6px; margin-right: 6px; vertical-align: 1px; }
+  .dl { display: none; }
+  body[data-layer="orig"] .dl-orig, body[data-layer="clip"] .dl-clip, body[data-layer="gemma"] .dl-gemma { display: contents; }
+  #facetbar button .rq { font-size: 10px; font-weight: 700; letter-spacing: .05em; color: var(--muted); margin-left: 5px; }
+  #facetbar button.on .rq { color: var(--bg); opacity: .75; }
+  .facetsum { margin: 0 2px 10px; font-size: 15px; }
+  .grid2 { display: grid; grid-template-columns: 96px 1fr 1fr; gap: 8px; }
+  .grid2 .hd { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); align-self: end; padding: 0 4px; }
+  .grid2 .rh { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); align-self: center; }
+  .grid2 .fcol p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+  .grid2 .sub { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); }
+  @media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } .grid2 .hd, .grid2 .rh { display: none; } }
+  details.fold > summary { list-style: none; cursor: pointer; }
+  details.fold > summary::-webkit-details-marker { display: none; }
+  details.fold .more { color: var(--accent); white-space: nowrap; }
+  details.fold[open] .more { display: none; }
+  /* drift × conclusion chart: 3 categorical slots (validated all-pairs, light + dark) */
+  #dcbox { --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #dcbox { --s1: #3987e5; --s2: #d95926; --s3: #199e70; } }
+  .dchead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 4px 6px 0; font-size: 13px; }
+  .dclegend { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+  .dclegend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dclegend i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); display: inline-block; }
+  .layerbtns { display: flex; gap: 4px; flex-wrap: wrap; }
+  .layerbtns button { font: inherit; font-size: 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 2px 9px; cursor: pointer; }
+  .layerbtns button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  #dc { width: 100%; height: auto; display: block; }
+  #dc text { fill: var(--muted); font: 12px system-ui, sans-serif; }
+  #dc .lab { fill: var(--ink); font-size: 12px; }
+  #dc .corner { font-style: italic; opacity: .8; }
+  #dc .pt { cursor: pointer; }
+  #dc .pt circle { stroke: var(--paper); stroke-width: 2; }
+  #dc .pt:hover circle, #dc .pt:focus circle { stroke: var(--ink); }
+  #dctable table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+  #dctable th, #dctable td { text-align: left; padding: 3px 6px; border-bottom: 1px solid var(--line); }
+  #dctable td.n { text-align: right; font-variant-numeric: tabular-nums; }
   #facetgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
   .fcol { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
   .fcol h4 { margin: 0 0 2px; font-size: 14px; } .fcol .meta { margin-bottom: 4px; }
@@ -124,6 +165,7 @@
 </style>
 </head>
 <body>
+<script src="nav.js"></script>
 <div class="wrap">
   <header>
     <div class="kicker">Meme tracing · one chain, step by step</div>
@@ -143,9 +185,25 @@
     <div id="mapbox"><svg id="map" viewBox="0 0 860 900" role="img" aria-label="Tree of the versions"></svg></div>
   </section>
   <section>
-    <div class="act"><div class="n serif">⇄</div><h2 class="serif">How a post can link to the original</h2>
-      <p>Not every version points back the same way. Some links can be traced through the API; some can only be found by searching the text; some are pictures of posts, which no API can follow.</p></div>
-    <div id="links" class="lgrid"></div>
+    <div class="act"><div class="n serif">▦</div><h2 class="serif">Ways to sort the versions</h2>
+      <p>The same 27 versions, grouped by the questions this project asks. Start with what each one concludes:
+        does it repeat the original, reuse it as a template, comment on it, flip it, or leave it behind?
+        Pick another button to group them by what happens to the picture, where “heaven” goes, when it was posted, AI's role or account size.</p></div>
+    <div id="facetbar"></div>
+    <p id="facetq" class="meta" style="margin:8px 2px"></p>
+    <p id="facetsum" class="facetsum"></p>
+    <div id="facetgrid"></div>
+  </section>
+  <section>
+    <div class="act"><div class="n serif">◇</div><h2 class="serif">Do the words drift, or the picture?</h2>
+      <p>Each dot is one version: how far its caption moved from the entry post (left → right) and how far its picture moved (bottom → top).
+        If the conclusion codes hold, Templates sit top-left (same words, new picture) and Comments bottom-right (new words, same picture).</p></div>
+    <div class="card" id="dcbox">
+      <div class="dchead"><div id="dclegend" class="dclegend"></div><div class="layerbtns" id="dclayers"></div></div>
+      <svg id="dc" viewBox="0 0 860 470" role="img" aria-label="Scatter of caption drift against picture drift, colored by conclusion"></svg>
+      <p class="maphint" id="dcnote"></p>
+      <details class="det" style="margin:4px"><summary>Show as a table</summary><div id="dctable"></div></details>
+    </div>
   </section>
   <section>
     <div class="act"><div class="n serif">⏱</div><h2 class="serif">Timeline</h2>
@@ -153,29 +211,58 @@
     <div class="card" id="tlbox"><svg id="tl" viewBox="0 0 860 560" role="img" aria-label="Posts per hour over time"></svg></div>
   </section>
   <section>
-    <div class="act"><div class="n serif">▦</div><h2 class="serif">Other ways to sort the versions</h2>
-      <p>A / B is one lens. Each button sorts the same versions by a different question. These codes are a first draft.</p></div>
-    <div id="facetbar"></div>
-    <p id="facetq" class="meta" style="margin:8px 2px"></p>
-    <div id="facetgrid"></div>
+    <details class="fold">
+      <summary><div class="act"><div class="n serif">⇄</div><h2 class="serif">How a post can link to the original</h2>
+        <p>Not every version points back the same way: some links can be traced through the API, some only by searching the text, some are pictures of posts. <span class="more">Show the nine kinds ▾</span></p></div></summary>
+      <div id="links" class="lgrid"></div>
+    </details>
   </section>
   <div id="tip"></div>
+  <div id="layerbar"><span>Drift layer</span></div>
   <main id="chain"></main>
   <footer>
-    <a class="cta" href="chain_viewer.html">Explore the full chain: all quote posts →</a><br>
+    <a class="cta" href="chain_viewer.html">Explore the full chain: all quote posts →</a>
+    <a class="cta" href="lenses.html">Three research questions on one timeline →</a><br>
     Data: public Bluesky posts (quote posts and replies), collected Oct 7, 2026 with the public API.
     Versions picked by Charlotte and Claude. Counts are as of collection.
     Handles are shown for research use; hide them before sharing publicly (set SHOW_HANDLES to false in this file).
-    “Kept / added / lost” and emotion are a first hand-coded draft; drift scores are simple first measures
-    (caption: character overlap; image: perceptual hash), to be replaced by sentence embeddings and CLIP.
+    “Kept / added / lost”, the conclusion tags (Repeat / Template / Comment / Invert / New meme) are a first draft by Claude, to be checked. Drift scores come in layers (switch above the versions):
+    Original = first simple measures (caption: character overlap; image: perceptual hash);
+    CLIP and EmbeddingGemma 2 = 1 − cosine similarity to the entry post. The two models use different scales: compare rankings, not raw values.
   </footer>
 </div>
 
 <script src="data/meme_chain.js"></script>
+<script src="data/layers/demo_clip.js" onerror="0"></script>
+<script src="data/layers/demo_gemma.js" onerror="0"></script>
 <script>
 const SHOW_HANDLES = true;   // set to false before sharing publicly
 const M = window.MEME, S = M.steps;
 const t0 = Date.parse(M.root_created);
+// ---------- drift layers: the original simple scores stay as they are; model scores come from separate
+// layer files (data/layers/demo_*.js, made by scripts/embed_drift.py) and are only shown when picked ----------
+const DL = window.DRIFT_LAYERS || {};
+const LAYERS = [["orig", "Original (simple)"], ["clip", "CLIP (baseline)"], ["gemma", "EmbeddingGemma 2"]]
+  .filter(([k]) => k === "orig" || DL[k]);
+const bar = (label, v, tip) => v == null ? "" :
+  `<span class="drift" title="${tip || ""}">${label} <i><b style="width:${Math.min(v, 1) * 100}%"></b></i> ${v.toFixed(2)}</span>`;
+function driftHTML(s) {
+  const key = s.id.split("/").pop();
+  return LAYERS.map(([k]) => {
+    if (k === "orig")
+      return `<span class="dl dl-orig">${bar("caption drift", s.text_drift, "character overlap") + bar("image drift", s.image_drift, "perceptual hash")}</span>`;
+    const r = DL[k].rows[key] || {}, m = DL[k].label;
+    return `<span class="dl dl-${k}">${bar("caption drift", r.text, m) + bar("picture drift", r.image, m)
+      + bar("caption+picture", r.joint, m + ": caption and picture in one embedding")}</span>`;
+  }).join("");
+}
+let redrawDrift = null;   // set by the drift × conclusion chart further down
+function setLayer(k) {
+  document.body.dataset.layer = k;
+  document.querySelectorAll("#layerbar button, #dclayers button").forEach(b => b.classList.toggle("on", b.dataset.k === k));
+  try { localStorage.setItem("driftLayer", k); } catch (e) {}
+  if (redrawDrift) redrawDrift();
+}
 const esc = s => (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const ago = iso => { const m = (Date.parse(iso) - t0) / 60000;
   if (m < 0) return -m < 2880 ? (-m / 60).toFixed(1).replace(".0", "") + " hours before the biggest entry post" : Math.round(-m / 1440) + " days before the biggest entry post";
@@ -254,15 +341,13 @@ S.forEach((s, i) => {
     <div class="pic"><img src="${s.image_path_or_url}" alt="${esc(s.image_alt)}" loading="lazy">
       ${s.own_image ? "" : `<span class="tag">shows the picture it ${s.kind === "reply" ? "replies to" : "quotes"}</span>`}</div>
     <div class="body">
-      <div class="meta"><span class="typetag ${s.type}">${TYPE[s.type]}</span>Step ${i + 1} · ${ago(s.createdAt)} · ${s.kind === "root" ? "entry post" : s.kind}${s.depth > 1 ? " ×" + s.depth : ""}</div>
+      <div class="meta"><span class="typetag ${s.type}">${TYPE[s.type]}</span>${s.facets.conclusion ? `<span class="conctag" title="${esc(s.facets.conclusion)} · RQ1 draft code">${esc(s.facets.conclusion.split(" (")[0])}</span>` : ""}Step ${i + 1} · ${ago(s.createdAt)} · ${s.kind === "root" ? "entry post" : s.kind}${s.depth > 1 ? " ×" + s.depth : ""}</div>
       <div class="title">${esc(s.title)}</div>
       <p class="quote serif ${s.text ? "" : "empty"}">${s.text ? esc(s.text) : "(no caption: the picture says it)"}</p>
       <div class="kal">${row("Kept", s.kept, "kept")}${row("Added", s.added, "added")}${row("Lost", s.lost, "lost")}</div>
       ${s.note || s.ai_note ? `<div class="note">${esc([s.ai_note, s.note].filter(Boolean).join(" · "))}</div>` : ""}
       <div class="foot">
-        <span class="chip">feels: ${esc(s.emotion)}</span>
-        ${s.text_drift != null ? `<span class="drift">caption drift <i><b style="width:${s.text_drift * 100}%"></b></i> ${s.text_drift.toFixed(2)}</span>` : ""}
-        ${s.image_drift != null ? `<span class="drift">image drift <i><b style="width:${s.image_drift * 100}%"></b></i> ${s.image_drift.toFixed(2)}</span>` : ""}
+        ${driftHTML(s)}
         <span>${who(s)} · ${fol(s.author_followers)} followers · ♥ ${fol(s.likeCount)}</span>
       </div>
       ${detailsHTML(s, i)}
@@ -270,6 +355,12 @@ S.forEach((s, i) => {
   </article>`;
 });
 document.getElementById("chain").innerHTML = html;
+
+const lbar = document.getElementById("layerbar");
+lbar.insertAdjacentHTML("beforeend", LAYERS.map(([k, l]) => `<button data-k="${k}">${l}</button>`).join(""));
+lbar.addEventListener("click", e => { const b = e.target.closest("button"); if (b) setLayer(b.dataset.k); });
+let saved = "orig"; try { saved = localStorage.getItem("driftLayer") || "orig"; } catch (e) {}
+setLayer(LAYERS.some(([k]) => k === saved) ? saved : "orig");
 
 // ---------- chain map ----------
 const NS = "http://www.w3.org/2000/svg";
@@ -308,7 +399,7 @@ txt(430, 205, "the Bluesky entry post (screenshot of X)", "");
 // X origin (hover for details)
 const og = el("g", { class: "node", tabindex: 0 });
 el("rect", { x: 330, y: 12, width: 200, height: 48, rx: 8, fill: "var(--paper)", stroke: "var(--muted)", "stroke-dasharray": "4 3" }, og);
-const o1 = el("text", { x: 430, y: 32, "text-anchor": "middle", class: "gt" }, og); o1.textContent = "X · @pallnandi · Jan 12, 2025";
+const o1 = el("text", { x: 430, y: 32, "text-anchor": "middle", class: "gt" }, og); o1.textContent = SHOW_HANDLES ? "X · @pallnandi · Jan 12, 2025" : "X · Jan 12, 2025";
 const o2 = el("text", { x: 430, y: 50, "text-anchor": "middle" }, og); o2.textContent = "image first seen Dec 30, 2024";
 el("path", { d: "M430,60 L430,98", class: "edge deep" });
 // separate entry points: copied from X, no link to each other
@@ -418,9 +509,15 @@ const linkOf = s => s.kind === "root" ? "screenshot from X (entry post)" : s.kin
   : s.kind === "quote" ? (s.depth > 1 ? "quote of a quote" : "quote") : (s.depth > 1 ? "reply to a reply" : "reply");
 const phaseOf = s => { const m = (Date.parse(s.createdAt) - t0) / 60000;
   return m < 0 ? "before the biggest entry post" : m < 60 ? "first hour" : m < 1440 ? "first day" : m < 4320 ? "days 2–3" : "long tail"; };
-const reachOf = s => (s.author_followers || 0) >= 10000 ? "over 10k followers" : (s.author_followers || 0) >= 1000 ? "1k–10k followers" : "under 1k followers";
+// same four tiers as lenses.html (RQ3)
+const reachOf = s => { const f = s.author_followers || 0; return f >= 100000 ? "100k+ followers" : f >= 10000 ? "10k–100k followers" : f >= 1000 ? "1k–10k followers" : "under 1k followers"; };
+// RQ2, from the draft information units in data/demo_notes.json
+const aiOf = s => { const u = s.units || {};
+  return u.image === 1 ? "AI as maker: shows the (likely) AI image" : u.image ? "people edit the AI image" : u.ai_status ? "people name it as AI" : "AI image not shown"; };
+const concOf = s => (s.facets.conclusion || "—").split(" (")[0];
 const facetOf = (s, key) => key === "type" ? ({ A: "Type A · picture-based", B: "Type B · topic-based", root: "entry (screenshot)" })[s.type]
-  : key === "link" ? linkOf(s) : key === "phase" ? phaseOf(s) : key === "reach" ? reachOf(s) : (s.facets[key] || "—");
+  : key === "link" ? linkOf(s) : key === "phase" ? phaseOf(s) : key === "reach" ? reachOf(s) : key === "ai" ? aiOf(s)
+  : key === "conclusion" ? concOf(s) : (s.facets[key] || "—");
 
 // ---------- how a post can link ----------
 (() => {
@@ -524,19 +621,112 @@ const facetOf = (s, key) => key === "type" ? ({ A: "Type A · picture-based", B:
 
 // ---------- other ways to sort ----------
 (() => {
-  const bar = document.getElementById("facetbar"), grid = document.getElementById("facetgrid"), q = document.getElementById("facetq");
-  bar.innerHTML = M.facets.map(f => `<button data-k="${f.key}">${esc(f.label)}</button>`).join("");
+  const bar = document.getElementById("facetbar"), grid = document.getElementById("facetgrid"), q = document.getElementById("facetq"), sum = document.getElementById("facetsum");
+  // research-question order; A / B (the first, picture- vs topic-based split) goes last
+  const ORDER = ["conclusion", "picture", "heaven_becomes", "phase", "link", "ai", "reach", "type"];
+  const RQ = { conclusion: "RQ1", picture: "RQ1", heaven_becomes: "RQ1", phase: "RQ1", link: "RQ1", ai: "RQ2", reach: "RQ3" };
+  const LABEL = { picture: "What happens to the picture", heaven_becomes: "Where “heaven” goes", phase: "When it was posted", link: "How it links", reach: "Account size", conclusion: "What it concludes" };
+  const facets = ORDER.map(k => M.facets.find(f => f.key === k)).filter(Boolean);
+  bar.innerHTML = facets.map(f => `<button data-k="${f.key}">${esc(LABEL[f.key] || f.label)}${RQ[f.key] ? `<span class="rq">${RQ[f.key]}</span>` : ""}</button>`).join("");
+  const n = v => `${v} version${v > 1 ? "s" : ""}`;
+  const col = (title, ids, desc, extra) => `<div class="fcol"><h4>${esc(title)}</h4><div class="meta">${ids.length ? n(ids.length) : "none here"}</div>
+    ${desc ? `<p>${desc}</p>` : ""}<div class="thumbs">${ids.map(thumb).join("")}</div>${extra || ""}</div>`;
+  // the RQ1 conclusion as its 2×2: frame (how it is said) × content (what it says)
+  function grid2(groups) {
+    const g = k => groups[k] || [];
+    return `<div class="grid2">
+      <span></span><div class="hd">Content kept<br><span style="text-transform:none;letter-spacing:0">still “this is heaven”</span></div><div class="hd">Content changed<br><span style="text-transform:none;letter-spacing:0">something else is heaven</span></div>
+      <div class="rh">Frame kept<br><span style="text-transform:none;letter-spacing:0">“a leaked photo … is going viral”</span></div>
+      ${col("Repeat", g("Repeat"), "Shares it as it is.")}
+      ${col("Template", g("Template"), "Keeps the sentence, brings a new picture.",
+        `<div class="sub"><h4>Invert</h4><div class="meta">${n(g("Invert").length)}</div><p>A template that flips heaven into its opposite.</p><div class="thumbs">${g("Invert").map(thumb).join("")}</div></div>`)}
+      <div class="rh">Frame changed</div>
+      ${col("Comment", g("Comment"), "Talks about the original itself: is it AI? who took it? what does it look like?")}
+      ${col("New meme", g("New meme"), "Both changed; only a loose link remains.")}
+    </div>`;
+  }
   function draw(key) {
     bar.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.k === key));
     q.textContent = M.facets.find(f => f.key === key).q;
     const groups = {};
     S.forEach((s, i) => (groups[facetOf(s, key)] = groups[facetOf(s, key)] || []).push(i));
     const order = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
-    grid.innerHTML = order.map(v => `<div class="fcol"><h4>${esc(v)}</h4><div class="meta">${groups[v].length} version${groups[v].length > 1 ? "s" : ""}</div><div class="thumbs">${groups[v].map(thumb).join("")}</div></div>`).join("");
+    sum.innerHTML = `Most common: <b>${esc(order[0])}</b> (${groups[order[0]].length} of ${S.length})${order.length > 1 ? `, then <b>${esc(order[1])}</b> (${groups[order[1]].length})` : ""}.`;
+    grid.style.display = key === "conclusion" ? "block" : "";
+    grid.innerHTML = key === "conclusion" ? grid2(groups) : order.map(v => col(v, groups[v])).join("");
     wireThumbs(grid);
   }
   bar.addEventListener("click", e => { const b = e.target.closest("button"); if (b) draw(b.dataset.k); });
-  draw("link");
+  draw("conclusion");
+})();
+
+// ---------- drift × conclusion (RQ1) ----------
+// x = caption drift, y = picture drift, from the chosen drift layer. Three colors only (Template, Comment, other);
+// the few "other" dots are labelled by name, so identity never rests on color alone.
+(() => {
+  const dc = document.getElementById("dc"), W = 860, H = 470, L = 64, R = 20, T = 18, B = 52;
+  const CAT = { Template: "--s1", Comment: "--s2" };
+  const E = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || dc).appendChild(e); return e; };
+  const X = (v, mx) => L + (W - L - R) * v / mx, Y = (v, my) => H - B - (H - T - B) * v / my;
+  const vals = s => {
+    const k = document.body.dataset.layer || "orig";
+    if (k === "orig") return [s.caption_status === "none" ? null : s.text_drift, s.image_drift];
+    const r = (DL[k] && DL[k].rows[rk(s)]) || {};
+    return [r.text ?? null, r.image ?? null];
+  };
+  document.getElementById("dclayers").innerHTML = LAYERS.map(([k, l]) => `<button data-k="${k}">${l}</button>`).join("");
+  document.getElementById("dclayers").addEventListener("click", e => { const b = e.target.closest("button"); if (b) setLayer(b.dataset.k); });
+  // the entry post (the only Repeat) is the reference point, so it is drawn as the ring at (0, 0), not as a dot
+  const cnt = c => S.filter((s, i) => i !== ROOT && (c ? concOf(s) === c : !CAT[concOf(s)])).length;
+  const others = [...new Set(S.filter((s, i) => i !== ROOT && !CAT[concOf(s)]).map(concOf))].join(", ");
+  document.getElementById("dclegend").innerHTML =
+    [["Template", "--s1", cnt("Template")], ["Comment", "--s2", cnt("Comment")], [`Other, labelled (${others})`, "--s3", cnt()]]
+      .map(([l, c, k]) => `<span style="--c:var(${c})"><i></i>${l} (${k})</span>`).join("");
+
+  function draw() {
+    dc.innerHTML = "";
+    const k = document.body.dataset.layer || "orig";
+    const pts = S.map((s, i) => ({ s, i, v: vals(s) })).filter(p => p.i !== ROOT && p.v[0] != null && p.v[1] != null);
+    const skipped = S.length - 1 - pts.length;
+    // models use a narrower range than 0–1: fit each axis to its data, rounded up to a tenth
+    const fit = a => k === "orig" ? 1 : Math.min(1, Math.ceil((Math.max(...a) + .02) * 10) / 10);
+    const mx = fit(pts.map(p => p.v[0])), my = fit(pts.map(p => p.v[1]));
+    const step = m => m > .5 ? .2 : .1;
+    for (let t = 0; t <= mx + 1e-9; t += step(mx)) {
+      E("line", { x1: X(t, mx), x2: X(t, mx), y1: T, y2: H - B, stroke: "var(--line)", "stroke-width": 1 });
+      E("text", { x: X(t, mx), y: H - B + 18, "text-anchor": "middle" }).textContent = t.toFixed(1);
+    }
+    for (let t = 0; t <= my + 1e-9; t += step(my)) {
+      E("line", { x1: L, x2: W - R, y1: Y(t, my), y2: Y(t, my), stroke: "var(--line)", "stroke-width": 1 });
+      E("text", { x: L - 8, y: Y(t, my) + 4, "text-anchor": "end" }).textContent = t.toFixed(1);
+    }
+    E("text", { x: (L + W - R) / 2, y: H - 10, "text-anchor": "middle" }).textContent = "caption drift →  (the words change)";
+    E("text", { x: 14, y: (T + H - B) / 2, "text-anchor": "middle", transform: `rotate(-90 14 ${(T + H - B) / 2})` }).textContent = "picture drift →  (the picture changes)";
+    const c = (x, y, a, t) => { const e = E("text", { x, y, "text-anchor": a, class: "corner" }); e.textContent = t; };
+    c(L + 8, T + 14, "start", "same words, new picture");
+    c(W - R - 8, T + 14, "end", "both change");
+    c(W - R - 8, H - B - 8, "end", "new words, same picture");
+    // the entry post is the reference point (0, 0)
+    E("circle", { cx: X(0, mx), cy: Y(0, my), r: 7, fill: "none", stroke: "var(--ink)", "stroke-width": 2 });
+    E("text", { x: X(0, mx) + 11, y: Y(0, my) - 8, class: "lab" }).textContent = "entry post";
+    // other categories last so their labels sit on top
+    pts.sort((a, b) => !!CAT[concOf(a.s)] === !!CAT[concOf(b.s)] ? 0 : CAT[concOf(a.s)] ? -1 : 1).forEach(({ s, i, v }) => {
+      const cat = concOf(s), x = X(v[0], mx), y = Y(v[1], my);
+      const g = E("g", { class: "pt", tabindex: 0, "aria-label": `${s.title}: ${cat}, caption drift ${v[0].toFixed(2)}, picture drift ${v[1].toFixed(2)}` });
+      E("circle", { cx: x, cy: y, r: 13, fill: "transparent", stroke: "none" }, g);   // bigger hit target
+      E("circle", { cx: x, cy: y, r: 6, fill: `var(${CAT[cat] || "--s3"})` }, g);
+      if (!CAT[cat]) { const t = E("text", { x: x + 10, y: y + 4, class: "lab" }, g); t.textContent = cat; }
+      hook(g, () => tipStep(i) + `<div class="dd"><span>Conclusion</span><b>${esc(cat)}</b><span>Caption drift</span><b>${v[0].toFixed(2)}</b><span>Picture drift</span><b>${v[1].toFixed(2)}</b></div>`, () => jump(i), s);
+    });
+    const lab = LAYERS.find(([kk]) => kk === k)[1];
+    document.getElementById("dcnote").textContent = `Drift layer: ${lab}. ${skipped ? skipped + " version" + (skipped > 1 ? "s" : "") + " with no caption " + (skipped > 1 ? "are" : "is") + " not shown. " : ""}`
+      + (k === "orig" ? "Caption: character overlap; picture: perceptual hash." : "Axes are fitted to this model's range: compare positions, not raw numbers across models.")
+      + " Hover a dot for the post; click to jump to it.";
+    document.getElementById("dctable").innerHTML = `<table><tr><th>Step</th><th>Version</th><th>Conclusion</th><th>Caption drift</th><th>Picture drift</th></tr>${
+      pts.sort((a, b) => a.i - b.i).map(({ s, i, v }) => `<tr><td>${i + 1}</td><td>${esc(s.title)}</td><td>${esc(concOf(s))}</td><td class="n">${v[0].toFixed(2)}</td><td class="n">${v[1].toFixed(2)}</td></tr>`).join("")}</table>`;
+  }
+  redrawDrift = draw;
+  setLayer(document.body.dataset.layer || "orig");
 })();
 
 </script>

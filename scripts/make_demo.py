@@ -87,7 +87,7 @@ for n in notes["steps"]:
         "quoteCount": p.get("quoteCount", 0), "repostCount": p.get("repostCount", 0), "likeCount": p.get("likeCount", 0),
         "added": n["added"], "kept": n["kept"], "lost": n["lost"], "emotion": n["emotion"],
         "act": n["act"], "type": n.get("type") or next(a["type"] for a in notes["acts"] if a["id"] == n["act"]),
-        "facets": n.get("facets", {}),
+        "facets": n.get("facets", {}), "units": n.get("units"),
         "title": n["title"], "note": n.get("note", ""), "ai_note": n.get("ai_note", ""),
         "picked_by": n.get("picked_by", ""), "image_change": n.get("image_change"),
         "depth": p.get("depth", 1), "url": p["url"],

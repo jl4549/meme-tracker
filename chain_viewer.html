@@ -64,17 +64,19 @@
 </style>
 </head>
 <body>
+<script src="nav.js"></script>
 <header>
   <h1>“Leaked photo of heaven”: how one meme changed</h1>
   <div class="sub">Starting post on Bluesky (Jan 14, 2025) and every quote post of it, down to quotes of quotes.
     Left to right is time since the original; top to bottom is how many steps away from the original.
     Inside each row, posts near the top kept the original caption and posts near the bottom wrote something new.
-    Click any post to see its chain. <a href="demo.html">← Back to the 19-step story</a></div>
+    Click any post to see its chain. <a href="demo.html">← Back to the 27-version story</a></div>
   <div class="stats" id="stats"></div>
 </header>
 <div class="controls">
   <label><input type="checkbox" id="onlyImg"> Only posts with their own image</label>
   <label><input type="checkbox" id="showInf" checked> Ring around big accounts (≥10k followers)</label>
+  <label>Drift layer <select id="layer"></select></label>
   <div class="legend">
     Caption vs original:
     <span><i class="dot" style="background:var(--kept)"></i>kept</span>
@@ -94,8 +96,18 @@
 </section>
 
 <script src="data/chain_data.js"></script>
+<script src="data/layers/all_clip.js" onerror="0"></script>
+<script src="data/layers/all_gemma.js" onerror="0"></script>
 <script>
 const posts = window.CHAIN;
+// ---------- drift layers: "orig" = the simple scores in chain_data.js (unchanged); model layers come from
+// separate files in data/layers/ (scripts/embed_drift.py all) ----------
+const DL = window.DRIFT_LAYERS || {};
+const LAYERS = [["orig", "Original (simple)"], ["clip", "CLIP (baseline)"], ["gemma", "EmbeddingGemma 2"]].filter(([k]) => k === "orig" || DL[k]);
+let layer = "orig";
+const row = p => DL[layer].rows[p.id.split("/").pop()] || {};
+const capDrift = p => p.depth === 0 ? 0 : layer === "orig" ? 1 - (p.caption_status === "none" ? 0 : p.text_sim_root) : row(p).text ?? 1;
+const imgDrift = p => p.depth === 0 ? 0 : layer === "orig" ? p.img_dist_root ?? 0 : row(p).image ?? 0;
 const byId = Object.fromEntries(posts.map(p => [p.id, p]));
 const root = posts[0];
 const t0 = Date.parse(root.createdAt);
@@ -129,14 +141,17 @@ const H = y + 30;
 const maxM = Math.max(...posts.map(p => p.mins));
 const xOf = m => L + (W - L - R) * Math.log10(1 + m) / Math.log10(1 + maxM);
 function hashJitter(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0; return ((h >>> 0) % 1000) / 1000; }
-posts.forEach(p => {
-  const lane = lanes.find(l => l.d === p.depth);
-  const sim = p.caption_status === "none" ? 0 : p.text_sim_root;
-  const pad = p.depth === 0 ? lane.h / 2 : 14;
-  p.x = xOf(p.mins);
-  p.y = p.depth === 0 ? lane.y + lane.h / 2
-       : lane.y + pad + (1 - sim) * (lane.h - 2 * pad) * 0.85 + hashJitter(p.id) * (lane.h - 2 * pad) * 0.15;
-});
+function layout() {
+  // model layers use a narrower range than 0-1, so stretch by the layer's largest caption drift
+  const top = layer === "orig" ? 1 : Math.max(...posts.map(capDrift)) || 1;
+  posts.forEach(p => {
+    const lane = lanes.find(l => l.d === p.depth);
+    const pad = p.depth === 0 ? lane.h / 2 : 14;
+    p.x = xOf(p.mins);
+    p.y = p.depth === 0 ? lane.y + lane.h / 2
+         : lane.y + pad + Math.min(capDrift(p) / top, 1) * (lane.h - 2 * pad) * 0.85 + hashJitter(p.id) * (lane.h - 2 * pad) * 0.15;
+  });
+}
 
 function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; }
 let selected = root;
@@ -144,6 +159,7 @@ let selected = root;
 function draw() {
   const onlyImg = document.getElementById("onlyImg").checked;
   const showInf = document.getElementById("showInf").checked;
+  layout();
   svg.innerHTML = "";
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.setAttribute("width", W); svg.setAttribute("height", H);
@@ -223,8 +239,7 @@ function select(p) {
   const chain = []; for (let q = p; q; q = byId[q.parent_id]) chain.unshift(q);
   const k = kal(p);
   const shown = p.eff_image;
-  const textDrift = p === root ? 0 : 1 - (p.caption_status === "none" ? 0 : p.text_sim_root);
-  const imgDrift = p.img_dist_root ?? 0;
+  const tD = capDrift(p), iD = imgDrift(p), r = layer === "orig" ? {} : row(p);
   const big = (p.author_followers || 0) >= INF;
   document.getElementById("detail").innerHTML = `
     <h2>Chain from the original</h2>
@@ -248,10 +263,13 @@ function select(p) {
     </div>
     <h2>Kept / added / lost <span style="text-transform:none;font-weight:400">(auto, rough)</span></h2>
     <div class="kal"><b>Kept</b><span>${k.kept}</span><b>Added</b><span>${k.added}</span><b>Lost</b><span>${k.lost}</span></div>
-    <h2>Drift from the original <span style="text-transform:none;font-weight:400">(simple first version)</span></h2>
-    <div class="meta">Caption drift ${textDrift.toFixed(2)}</div><div class="bar"><i style="width:${textDrift * 100}%"></i></div>
-    <div class="meta">Image drift ${imgDrift.toFixed(2)}</div><div class="bar"><i style="width:${imgDrift * 100}%"></i></div>
-    <div class="imgnote">0 = identical to the original, 1 = completely different. Caption: character overlap. Image: perceptual hash. To be replaced by sentence embeddings and CLIP.</div>
+    <h2>Drift from the original <span style="text-transform:none;font-weight:400">(${LAYERS.find(([k]) => k === layer)[1]})</span></h2>
+    <div class="meta">Caption drift ${p.depth && layer !== "orig" && r.text == null ? "— (no text)" : tD.toFixed(2)}</div><div class="bar"><i style="width:${tD * 100}%"></i></div>
+    <div class="meta">Image drift ${iD.toFixed(2)}</div><div class="bar"><i style="width:${iD * 100}%"></i></div>
+    ${r.joint != null ? `<div class="meta">Caption + picture together ${r.joint.toFixed(2)}</div><div class="bar"><i style="width:${r.joint * 100}%"></i></div>` : ""}
+    ${r.cap_img != null ? `<div class="meta">Caption fits its own picture: ${r.cap_img.toFixed(2)} (cosine, higher = closer)</div>` : ""}
+    <div class="imgnote">0 = identical to the original. ${layer === "orig" ? "Caption: character overlap. Image: perceptual hash."
+      : "1 − cosine similarity in the model's shared text–image space. CLIP and EmbeddingGemma 2 use different scales: compare rankings, not raw values."}</div>
   `;
   document.querySelectorAll(".chainstep").forEach(e => e.onclick = () => select(byId[e.dataset.id]));
   document.querySelectorAll("#grid img").forEach(e => e.classList.toggle("sel", e.dataset.id === p.id));
@@ -266,6 +284,9 @@ document.querySelectorAll("#grid img").forEach(e => e.onclick = () => { select(b
 
 document.getElementById("onlyImg").onchange = draw;
 document.getElementById("showInf").onchange = draw;
+const sel = document.getElementById("layer");
+sel.innerHTML = LAYERS.map(([k, l]) => `<option value="${k}">${l}</option>`).join("");
+sel.onchange = () => { layer = sel.value; select(selected); };
 select(root);
 </script>
 </body>

@@ -1,5 +1,10 @@
 # CLAUDE.md — Charlotte's Independent Study: Meme Tracing
 
+## Latest project state (auto-synced daily from the claude.ai Project)
+The newest plans, decisions and advisor feedback live in `project-docs/` and are refreshed every morning. They are newer than the Oct 5 notes below; when they disagree, follow `project-docs/`.
+@project-docs/INDEX.md
+
+
 Context for Claude Code, carried over from a Cowork session (Sep 29 – Oct 5, 2026).
 
 ## Who / what
@@ -41,11 +46,17 @@ The earlier "relay study" (designers edit a photo in a chain, logging each step 
 Public does not mean consented (cf. the 2024 backlash against a scraped dataset of one million Bluesky posts). Store only what's needed, don't republish handles in public outputs without thought, and confirm IRB needs with Max.
 
 ## Files in this folder
-- `Independent_Study_Proposal*.docx`: original proposal ("Tracing Authorship": sequence of AI edits vs. perceived photo authenticity). Now outdated in direction.
-- `Research_Design_Discussion.pptx`: earlier design deck.
-- `Draftmarks.pdf`: Siddiqui et al., CHI 2026. Skeuomorphic process traces for human–AI writing (masking tape = AI insert, eraser crumb = prompt, residual glue = discarded AI text). Different readers need different trace detail. **Visual inspiration for the trace view.**
-- `matich-et-al-2026-...pdf`: Matich, Richardson & Burgess, *Media, Culture & Society* 48(6). Compares *90 Miles* and *All Eyes on Rafah*. An automated summary claimed authenticity works on four dimensions (provenance, symbolism, moral fidelity, affect). **UNVERIFIED: check the exact terms in this PDF before using them.**
-- `Aker_2026_Time_Dimension_of_Visual_Journalism.pdf`, `martinez_generative_2025.pdf`, `AI_Provenance_CHI_2026___Sep_10_Deadline.pdf`, `specialization/Design Space.pdf`: other references or materials. Read them before relying on them.
+Reorganized Oct 28, 2026: papers into `literature/`, the outdated proposal into `earlier-direction/`, visual deliverables into `figures/`. Nothing in `data/`, `scripts/` or the HTML viewers moved.
+
+- `earlier-direction/Independent_Study_Proposal*.docx`: original proposal ("Tracing Authorship": sequence of AI edits vs. perceived photo authenticity). Now outdated in direction. Two different drafts exist (not duplicates) — unclear which is final; check with Charlotte before treating either as canonical.
+- `earlier-direction/Research_Design_Discussion.pptx`: earlier design deck.
+- `figures/design-space-table.png`: the "Meme Evolution Design Space" framework figure (rows = evolution over time, columns = platforms/languages).
+- `figures/Leaked Photo of Heaven-screenshot.png`: screenshot of the deep-case meme's entry post.
+- `figures/Meme_Storyboard_and_Workflow.pdf`: Charlotte's own storyboard of the news→meme information-loss idea and the heaven meme's branching (Oct 9), not a literature reference.
+- `literature/Draftmarks.pdf`: Siddiqui et al., CHI 2026. Skeuomorphic process traces for human–AI writing (masking tape = AI insert, eraser crumb = prompt, residual glue = discarded AI text). Different readers need different trace detail. **Visual inspiration for the trace view.**
+- `literature/matich-et-al-2026-...pdf`: Matich, Richardson & Burgess, *Media, Culture & Society* 48(6). Compares *90 Miles* and *All Eyes on Rafah*. An automated summary claimed authenticity works on four dimensions (provenance, symbolism, moral fidelity, affect). **UNVERIFIED: check the exact terms in this PDF before using them.**
+- `literature/Aker_2026_Time_Dimension_of_Visual_Journalism.pdf`, `literature/martinez_generative_2025.pdf`, `literature/AI_Provenance_CHI_2026___Sep_10_Deadline.pdf`, `literature/Design Space.pdf`: other references or materials. Read them before relying on them.
+- `IRB consent template - social-behavioral.doc`: current IRB materials (application due Nov 8, see `project-docs/weekly-plan-week10.md`).
 
 ## Key related work (for positioning)
 - Zannettou et al. 2018 (IMC): tracks image memes across communities with perceptual hashing.

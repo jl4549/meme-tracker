@@ -4,8 +4,21 @@
     {
       "name": "chain-viewer",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8000"],
+      "runtimeArgs": ["scripts/serve.py", "8000"],
       "port": 8000
+    },
+    {
+      "name": "good-riddance",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../good-riddance", "run", "dev", "--", "--port", "5173", "--strictPort"],
+      "port": 5173
+    },
+    {
+      "name": "good-riddance-customer",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../good-riddance-customer", "run", "dev", "--", "--port", "5174", "--strictPort"],
+      "port": 5174,
+      "url": "http://localhost:5174"
     }
   ]
 }

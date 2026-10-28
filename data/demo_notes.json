@@ -99,7 +99,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "a real place"
+        "heaven_becomes": "a real place",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -117,7 +126,16 @@
         "builds_on": "the picture",
         "picture": "re-uploads it",
         "stance": "jokes about the claim",
-        "heaven_becomes": "unchanged"
+        "heaven_becomes": "unchanged",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 1,
+        "claim": 1,
+        "image": 1,
+        "ai_status": 0
       }
     },
     {
@@ -134,7 +152,16 @@
         "builds_on": "the picture",
         "picture": "re-uploads it",
         "stance": "passes it on",
-        "heaven_becomes": "unchanged"
+        "heaven_becomes": "unchanged",
+        "conclusion": "Repeat (frame kept, content kept)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 1,
+        "claim": 1,
+        "image": 1,
+        "ai_status": 0
       }
     },
     {
@@ -152,7 +179,16 @@
         "builds_on": "the picture",
         "picture": "edits it",
         "stance": "inverts it",
-        "heaven_becomes": "its opposite (hell)"
+        "heaven_becomes": "its opposite (hell)",
+        "conclusion": "Invert (frame kept, content flipped)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0.5,
+        "ai_status": 0
       }
     },
     {
@@ -168,7 +204,16 @@
         "builds_on": "the picture",
         "picture": "re-uploads it",
         "stance": "mocks / critiques",
-        "heaven_becomes": "unchanged"
+        "heaven_becomes": "unchanged",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 1,
+        "claim": 1,
+        "image": 1,
+        "ai_status": 0
       }
     },
     {
@@ -186,7 +231,16 @@
         "builds_on": "the X-post frame",
         "picture": "swaps it inside the frame",
         "stance": "plays along",
-        "heaven_becomes": "a game, film or book world"
+        "heaven_becomes": "a game, film or book world",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 1,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -204,7 +258,16 @@
         "builds_on": "the picture",
         "picture": "crops it",
         "stance": "finds a new reading",
-        "heaven_becomes": "a hobby or treat"
+        "heaven_becomes": "a hobby or treat",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0,
+        "image": 0.5,
+        "ai_status": 0
       }
     },
     {
@@ -220,7 +283,16 @@
         "builds_on": "the picture",
         "picture": "replaces it",
         "stance": "calls out AI",
-        "heaven_becomes": "a real place"
+        "heaven_becomes": "a real place",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0,
+        "image": 0,
+        "ai_status": 1
       }
     },
     {
@@ -237,7 +309,16 @@
         "builds_on": "the picture",
         "picture": "keeps it",
         "stance": "jokes about the claim",
-        "heaven_becomes": "unchanged"
+        "heaven_becomes": "unchanged",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 1,
+        "claim": 1,
+        "image": 1,
+        "ai_status": 0
       }
     },
     {
@@ -253,7 +334,16 @@
         "builds_on": "the picture",
         "picture": "keeps it",
         "stance": "questions where it came from",
-        "heaven_becomes": "unchanged"
+        "heaven_becomes": "unchanged",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 1,
+        "claim": 1,
+        "image": 1,
+        "ai_status": 0
       }
     },
     {
@@ -269,7 +359,16 @@
         "builds_on": "the picture",
         "picture": "replaces it",
         "stance": "names a look-alike",
-        "heaven_becomes": "a game, film or book world"
+        "heaven_becomes": "a game, film or book world",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -285,7 +384,16 @@
         "builds_on": "the picture",
         "picture": "replaces it",
         "stance": "calls out AI",
-        "heaven_becomes": "a game, film or book world"
+        "heaven_becomes": "a game, film or book world",
+        "conclusion": "Comment (talks about the original)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0,
+        "image": 0,
+        "ai_status": 1
       }
     },
     {
@@ -301,7 +409,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "another meme"
+        "heaven_becomes": "another meme",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -318,7 +435,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "reframes religion",
-        "heaven_becomes": "a real place"
+        "heaven_becomes": "a real place",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -334,7 +460,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "makes it personal",
-        "heaven_becomes": "something cozy or cute"
+        "heaven_becomes": "something cozy or cute",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -351,7 +486,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "inverts it",
-        "heaven_becomes": "its opposite (hell)"
+        "heaven_becomes": "its opposite (hell)",
+        "conclusion": "Invert (frame kept, content flipped)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -368,7 +512,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "another meme"
+        "heaven_becomes": "another meme",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -385,7 +538,16 @@
         "builds_on": "another version's joke",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "a game, film or book world"
+        "heaven_becomes": "a game, film or book world",
+        "conclusion": "New meme (both changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -401,7 +563,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "a game, film or book world"
+        "heaven_becomes": "a game, film or book world",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -417,7 +588,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "a hobby or treat"
+        "heaven_becomes": "a hobby or treat",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -434,7 +614,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "makes it personal",
-        "heaven_becomes": "a hobby or treat"
+        "heaven_becomes": "a hobby or treat",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -451,7 +640,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "another meme"
+        "heaven_becomes": "another meme",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -467,7 +665,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "makes it personal",
-        "heaven_becomes": "something cozy or cute"
+        "heaven_becomes": "something cozy or cute",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -483,7 +690,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays with the words",
-        "heaven_becomes": "a pun"
+        "heaven_becomes": "a pun",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -499,7 +715,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "makes it personal",
-        "heaven_becomes": "something cozy or cute"
+        "heaven_becomes": "something cozy or cute",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -515,7 +740,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "makes it personal",
-        "heaven_becomes": "something cozy or cute"
+        "heaven_becomes": "something cozy or cute",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 0.5,
+        "image": 0,
+        "ai_status": 0
       }
     },
     {
@@ -532,7 +766,16 @@
         "builds_on": "the sentence",
         "picture": "replaces it",
         "stance": "plays along",
-        "heaven_becomes": "a game, film or book world"
+        "heaven_becomes": "a game, film or book world",
+        "conclusion": "Template (frame kept, content changed)"
+      },
+      "units": {
+        "creator": 0,
+        "date": 0,
+        "x_frame": 0,
+        "claim": 1,
+        "image": 0,
+        "ai_status": 0
       }
     }
   ],
@@ -543,24 +786,19 @@
       "q": "Picture-based or topic-based?"
     },
     {
+      "key": "conclusion",
+      "label": "Conclusion (RQ1)",
+      "q": "RQ1, frame × content: does it repeat the original, reuse it as a template, comment on it, invert it, or leave it behind? (Claude's draft, Oct 28: check)"
+    },
+    {
       "key": "link",
       "label": "How it links",
       "q": "How is it connected to what came before?"
     },
     {
-      "key": "builds_on",
-      "label": "Builds on",
-      "q": "What does it take from before?"
-    },
-    {
       "key": "picture",
       "label": "Does to the picture",
       "q": "What happens to the picture?"
-    },
-    {
-      "key": "stance",
-      "label": "Stance",
-      "q": "What is the person doing with it?"
     },
     {
       "key": "heaven_becomes",
@@ -575,7 +813,13 @@
     {
       "key": "reach",
       "label": "Reach",
-      "q": "How big is the account?"
+      "q": "RQ3: how big is the account that posted it (followers at collection, Oct 2026)?"
+    },
+    {
+      "key": "ai",
+      "label": "AI's role",
+      "q": "RQ2: where does AI show up? In this meme only as the maker (the image is likely AI-made, not confirmed); people then edit it or name it as AI."
     }
-  ]
+  ],
+  "units_about": "Six information units per version (RQ1), DRAFT Oct 28: 1 = still there, 0.5 = changed, 0 = lost or never said. creator = who made the image; date = when the X post was made; x_frame = X post frame / poster name visible; claim = the 'leaked photo ... going viral' wording; image = the original picture; ai_status = says it is AI."
 }

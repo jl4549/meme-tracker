@@ -1,6 +1,6 @@
 """
 Read data/quotes_all.json, compare every post with the original and with its parent,
-and write data/chain_data.js for viewer/chain.html.
+and write data/chain_data.js for chain_viewer.html.
 
 Run from the IS folder:
     python scripts/build_chain.py

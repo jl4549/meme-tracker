@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Questions Timeline</title>
+<style>
+  :root {
+    --bg: #f4f6fa; --paper: #ffffff; --ink: #1b2130; --muted: #667085; --line: #dfe3ea; --band: #e8eefc;
+    --blue: #2b5bd7;
+    --c1: #2b5bd7; --c2: #d4582f; --c3: #2f8f5b; --c4: #8a4fc4; --c5: #b88a12; --c6: #0f8c9c; --c7: #c23d7a; --c0: #9aa1ad;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #13161c; --paper: #1b1f27; --ink: #e8ebf1; --muted: #9aa3b2; --line: #2d333f; --band: #1f2840;
+      --blue: #8fb0ff;
+      --c1: #8fb0ff; --c2: #f08a64; --c3: #6fcf97; --c4: #c39bf0; --c5: #e3c05a; --c6: #5fd0dd; --c7: #ef86b6; --c0: #6c7482;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 60px; }
+  header { padding: 36px 0 12px; }
+  .kicker { text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: var(--muted); }
+  h1 { margin: 6px 0 8px; font-size: clamp(26px, 5vw, 38px); font-weight: 600; }
+  .lede { max-width: 700px; color: var(--muted); margin: 0; }
+  a { color: var(--blue); }
+  .board { display: grid; grid-template-columns: 44px 1fr; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 18px; }
+  .rail { background: var(--band); display: flex; flex-direction: column; align-items: center; padding: 14px 0; }
+  .rail span { writing-mode: vertical-rl; transform: rotate(180deg); font: 600 12px ui-monospace, Consolas, monospace; letter-spacing: .14em; color: var(--blue); }
+  .rail i { flex: 1; width: 2px; background: var(--blue); margin: 10px 0 0; position: relative; }
+  .rail i::after { content: ""; position: absolute; bottom: -2px; left: -6px; border: 7px solid transparent; border-top: 10px solid var(--blue); border-bottom: 0; }
+  .rail span.end { margin-top: 14px; }
+  .axis { position: sticky; top: 0; z-index: 3; background: var(--paper); border-bottom: 1px solid var(--line); }
+  .lane { border-bottom: 1px solid var(--line); padding: 14px 0 6px; }
+  .lane:last-child { border-bottom: 0; }
+  .rqhead { background: var(--band); padding: 12px 16px 10px; border-bottom: 1px solid var(--line); color: var(--blue); font-weight: 600; font-size: 15px; }
+  .rqhead b { font: 700 12px ui-monospace, Consolas, monospace; letter-spacing: .1em; margin-right: 6px; }
+  .rqhead p { margin: 3px 0 0; font-weight: 400; font-size: 13px; color: var(--muted); max-width: 720px; }
+  .lane h2 { margin: 0 16px; font-size: 19px; color: var(--blue); font-weight: 600; }
+  .lane .q { margin: 3px 16px 0; color: var(--muted); max-width: 720px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 8px 16px 0; font-size: 13px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; }
+  .chip i { width: 11px; height: 11px; border-radius: 50%; border: 3px solid var(--c); display: inline-block; }
+  .note { margin: 6px 16px 0; font-size: 13px; color: var(--muted); font-style: italic; }
+  svg { display: block; width: 100%; height: auto; }
+  svg text { fill: var(--muted); font: 11px system-ui, sans-serif; }
+  .mk { cursor: pointer; }
+  .mk:hover circle.ring, .mk:focus circle.ring { stroke-width: 4.5; }
+  #tip { position: fixed; z-index: 10; width: 300px; background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+         box-shadow: 0 10px 30px rgba(0,0,0,.22); padding: 10px; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .1s; }
+  #tip.show { opacity: 1; }
+  #tip img { width: 100%; max-height: 150px; object-fit: cover; border-radius: 6px; display: block; margin-bottom: 6px; }
+  #tip .tag { display: inline-block; font-weight: 600; color: #fff; background: var(--c); border-radius: 5px; padding: 1px 7px; margin: 2px 0 4px; }
+  #tip .tt { font-weight: 600; font-size: 15px; }
+  #tip .meta { color: var(--muted); font-size: 12px; }
+  #tip .q2 { border-left: 3px solid var(--line); padding-left: 8px; margin: 6px 0; font-family: Georgia, serif; }
+  #tip dl { display: grid; grid-template-columns: 62px 1fr; gap: 2px 8px; margin: 6px 0 0; font-size: 12px; }
+  #tip dt { color: var(--muted); } #tip dd { margin: 0; }
+  footer { margin-top: 18px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<script src="nav.js"></script>
+<div class="wrap">
+  <header>
+    <div class="kicker">Meme tracing · three research questions on one timeline</div>
+    <h1>“Leaked photo of heaven”, read through three questions</h1>
+    <p class="lede">The same 27 versions, placed by time (left = first on Bluesky, right = a year later; the scale stretches the early hours).
+      Rows are grouped by research question, to show <b>when</b> each kind of change happens. Details for each version
+      (and how posts link) are in the <a href="demo.html">step-by-step story</a>; hover a picture here for a summary, click to open it there.</p>
+  </header>
+
+  <div class="board">
+    <div class="rail"><span>ORIGINAL</span><i></i><span class="end">LATER</span></div>
+    <div>
+      <div class="axis"><svg id="axis" viewBox="0 0 900 50" aria-hidden="true"></svg></div>
+      <div id="lanes"></div>
+    </div>
+  </div>
+  <footer>
+    Tags, including the conclusion codes (Oct 28), are a first draft by Claude from the post text, images, alt text and account bios; please check them.
+    Account types use each account's own bio as of Oct 2026, not at the time of posting, and are not verified.
+    Follower counts are from collection (Oct 2026), not from the time of posting. Whether replacement pictures are AI-made was not checked.
+  </footer>
+</div>
+<div id="tip"></div>
+
+<script src="data/meme_chain.js"></script>
+<script src="data/layers/demo_gemma.js" onerror="0"></script>
+<script>
+const SHOW_HANDLES = true;   // set to false before sharing publicly
+const M = window.MEME, S = M.steps;
+const NS = "http://www.w3.org/2000/svg";
+const esc = s => (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const rk = s => s.id.split("/").pop();
+const fol = n => n == null ? "?" : n >= 10000 ? Math.floor(n / 1000) + "k" : n >= 1000 ? (Math.floor(n / 100) / 10).toFixed(1) + "k" : n;
+const tFirst = Math.min(...S.map(s => Date.parse(s.createdAt)));
+const tRoot = Date.parse(M.root_created);
+const ago = iso => { const m = (Date.parse(iso) - tRoot) / 60000, a = Math.abs(m);
+  const t = a < 60 ? Math.round(a) + " min" : a < 2880 ? (a / 60).toFixed(1).replace(".0", "") + " h" : a < 86400 ? Math.round(a / 1440) + " days" : Math.round(a / 43200) + " months";
+  return m < 0 ? t + " before the biggest entry post" : m < 1 ? "the biggest entry post" : t + " after the biggest entry post"; };
+
+// ---------- time scale: first 48 hours linear (where almost everything happens), then a compressed tail ----------
+const X0 = 118, X1 = 885, W = 900, XB = X0 + (X1 - X0) * 0.8, LIN = 2880;
+const tMax = (Math.max(...S.map(s => Date.parse(s.createdAt))) - tFirst) / 60000;
+const xMin = m => m <= LIN ? X0 + (XB - X0) * m / LIN
+  : XB + 14 + (X1 - XB - 14) * Math.log10(m / LIN) / Math.log10(tMax / LIN);
+const xOf = iso => xMin(Math.max(0, (Date.parse(iso) - tFirst) / 60000));
+
+// ---------- tags for each lens (draft codes) ----------
+const LEVEL = { "unchanged": 0, "a real place": 1, "something cozy or cute": 2, "a hobby or treat": 2, "a game, film or book world": 2, "another meme": 3, "a pun": 3, "its opposite (hell)": 3 };
+// from each account's own bio (Oct 2026), self-described and unverified
+const PRO = {
+  "fernballew.bsky.social": ["satire / comedy writer", "bio: “Contributor at @theonion”, formerly @pitchjokes"],
+  "junlper.beer": ["writer, journalist or podcaster", "bio: WGAE (Writers Guild) member, hosts two podcasts"],
+  "birdrespecter.bsky.social": ["writer, journalist or podcaster", "bio: “I write + talk about … the Internet”"],
+  "ambersparks.bsky.social": ["writer, journalist or podcaster", "bio: writer, essayist, author"],
+  "sillysyntax.bsky.social": ["writer, journalist or podcaster", "bio: award-finalist fiction author"],
+  "krystlematar.bsky.social": ["writer, journalist or podcaster", "bio: novelist"],
+  "handle.invalid": ["writer, journalist or podcaster", "bio: “Writer of …”"],
+  "wyrdscience.bsky.social": ["publication / outlet", "bio: a magazine"],
+};
+const level = s => LEVEL[s.facets.heaven_becomes] ?? 0;
+// RQ1 conclusion (frame × content), drafted in data/demo_notes.json → facets.conclusion
+const CONC = s => (s.facets.conclusion || "—").split(" (")[0];
+// information units under each picture (draft codes in data/demo_notes.json → units; creator and date are lost by all,
+// so only these four are drawn): X frame / poster · claim wording · original image · says it is AI
+const units = s => { const u = s.units || {}; return [u.x_frame || 0, u.claim || 0, u.image || 0, u.ai_status || 0]; };
+const TIER = s => { const f = s.author_followers || 0; return f >= 100000 ? "100k+ followers" : f >= 10000 ? "10k–100k" : f >= 1000 ? "1k–10k" : "under 1k"; };
+const DL = (window.DRIFT_LAYERS || {}).gemma;   // optional EmbeddingGemma 2 layer (scripts/embed_drift.py demo)
+
+const RQS = {
+  1: ["RQ1", "Conclusion drift", "Which versions repeat, reuse as a template, comment on, invert, or leave behind the original, and what information is lost? How does this relate to how it links, when it appears and who posts it?"],
+  2: ["RQ2", "Roles of AI", "What roles does AI play as the meme evolves (maker, remaker, interpreter), and how does each redirect it?"],
+  3: ["RQ3", "Account power", "Are conclusions introduced by large or official accounts more often taken up by later versions?"],
+};
+
+const LANES = [
+  { rq: 1, key: "conc", title: "What it concludes",
+    q: "Frame × content. Template = keeps “a leaked photo … is going viral”, swaps what it shows. Comment = talks about the original (is it AI? who took it?). Invert = keeps the frame, flips the content.",
+    cats: [["Repeat", "--c0"], ["Template", "--c3"], ["Comment", "--c1"], ["Invert", "--c2"], ["New meme", "--c4"]],
+    tag: CONC,
+    note: "Lost by every version from the start: who made the image (first seen on X, Dec 30, 2024) and when the X post was made. Under each picture: ■ X poster still visible · ■ claim wording kept (◩ changed) · ■ original image shown (◩ edited) · ■ says it is AI. Hollow = lost or never said.",
+    squares: true },
+  { rq: 1, key: "drift", title: "Where the content goes",
+    q: "When the content changes, how far does “heaven” move, and in which direction?",
+    cats: [["unchanged", "--c0"], ["a real place", "--c1"], ["something cozy or cute", "--c3"], ["a hobby or treat", "--c5"], ["a game, film or book world", "--c4"], ["another meme", "--c6"], ["a pun", "--c7"], ["its opposite (hell)", "--c2"]],
+    tag: s => s.facets.heaven_becomes,
+    levels: ["same subject", "a real place", "an imagined world", "a different joke"],
+    level },
+  { rq: 2, key: "ai", title: "Where AI appears",
+    q: "Maker: the (likely) AI image itself. People then edit it or name it as AI. Remaker and interpreter roles need other cases.",
+    cats: [["AI as maker: shows the AI image", "--c4"], ["people edit the AI image", "--c7"], ["people name it as AI", "--c1"], ["AI image not shown (new picture not checked)", "--c0"]],
+    tag: s => { const [, , img, ai] = units(s);
+      return img === 1 ? "AI as maker: shows the AI image" : img ? "people edit the AI image" : ai ? "people name it as AI" : "AI image not shown (new picture not checked)"; },
+    note: "In this meme AI only shows up as the maker (the image is likely AI-made, not confirmed). No AI remake and no AI answering in a thread were found, so those roles need other cases (e.g. Jensen Huang for remaker, Grok threads on X for interpreter). The two versions naming it as AI got 4 and 3 likes and were never quoted: a lead, not a finding." },
+  { rq: 3, key: "pro", title: "Who posts it",
+    q: "Account size by followers (at collection). Hover for the account type from its bio.",
+    cats: [["100k+ followers", "--c2"], ["10k–100k", "--c4"], ["1k–10k", "--c1"], ["under 1k", "--c0"]],
+    tag: TIER,
+    note: "Next: adoption rate (how many later versions take up each version's conclusion), then a power map. The earliest Bluesky version came from an account whose bio says it writes for The Onion (bios as of Oct 2026, self-described, unverified)." },
+];
+
+// ---------- axis ----------
+(() => {
+  const ax = document.getElementById("axis");
+  const E = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); ax.appendChild(e); return e; };
+  E("line", { x1: X0, x2: XB, y1: 30, y2: 30, stroke: "var(--muted)" });
+  E("line", { x1: XB + 14, x2: X1, y1: 30, y2: 30, stroke: "var(--muted)" });
+  const tx = (x, y, s, anchor, style) => { const t = E("text", { x, y, "text-anchor": anchor || "middle" }); if (style) t.setAttribute("style", style); t.textContent = s; };
+  tx(XB + 7, 34, "⋯");
+  // every 6 hours (UTC) in the linear part, labelled by date at midnight
+  for (let d = Math.ceil(tFirst / 216e5) * 216e5; d <= tFirst + LIN * 60000; d += 216e5) {
+    const x = xMin((d - tFirst) / 60000), mid = new Date(d).getUTCHours() === 0;
+    E("line", { x1: x, x2: x, y1: mid ? 24 : 27, y2: 33, stroke: "var(--muted)" });
+    tx(x, 20, mid ? new Date(d).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" }) : String(new Date(d).getUTCHours()).padStart(2, "0") + ":00", "middle", mid ? "font-weight:600" : "");
+  }
+  [["1 wk", 10080], ["1 mo", 43200], ["1 yr", 525600]].filter(([, m]) => m <= tMax).forEach(([lab, m]) => {
+    const x = xMin(m); E("line", { x1: x, x2: x, y1: 26, y2: 33, stroke: "var(--muted)" }); tx(x, 20, lab);
+  });
+  const xr = xOf(M.root_created);
+  E("path", { d: `M${xr},34 l-4,8 h8 z`, fill: "var(--blue)" });
+  tx(6, 14, "on X before:", "start"); tx(6, 28, "Dec 30, Jan 12", "start");
+  tx(X0, 44, "UTC · ▲ biggest entry post", "start");
+})();
+
+// ---------- lanes ----------
+const lanesEl = document.getElementById("lanes");
+LANES.forEach((L, li) => {
+  if (!li || LANES[li - 1].rq !== L.rq) {
+    const [id, name, q] = RQS[L.rq], h = document.createElement("div");
+    h.className = "rqhead";
+    h.innerHTML = `<b>${id}</b> ${esc(name)}<p>${esc(q)}</p>`;
+    lanesEl.appendChild(h);
+  }
+  const sec = document.createElement("section");
+  sec.className = "lane";
+  const used = new Set(S.map(L.tag));
+  sec.innerHTML = `<h2>${esc(L.title)}</h2><p class="q">${esc(L.q)}</p>
+    <div class="chips">${L.cats.filter(([c]) => used.has(c)).map(([c, v]) => `<span class="chip" style="--c:var(${v})"><i></i>${esc(c)} (${S.filter(s => L.tag(s) === c).length})</span>`).join("")}</div>
+    ${L.note ? `<p class="note">${esc(L.note)}</p>` : ""}`;
+  const svg = document.createElementNS(NS, "svg");
+  sec.appendChild(svg);
+  lanesEl.appendChild(sec);
+  const E = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
+  const color = c => `var(${(L.cats.find(([n]) => n === c) || [, "--c0"])[1]})`;
+
+  // place markers: one row per level, stacked on collision
+  const nLevels = L.levels ? L.levels.length : 1, rows = Array.from({ length: nLevels }, () => []);
+  const place = S.map((s, i) => {
+    const x = xOf(s.createdAt), lv = L.levels ? L.level(s) : 0;
+    let r = 0; while ((rows[lv][r] || []).some(px => Math.abs(px - x) < 23)) r++;
+    (rows[lv][r] = rows[lv][r] || []).push(x);
+    return { i, x, lv, r };
+  });
+  const rowH = L.squares ? 34 : 25, pad = 18;
+  const levelH = rows.map(r => Math.max(1, r.length) * rowH + 8);
+  const levelY = levelH.map((_, k) => pad + levelH.slice(0, k).reduce((a, b) => a + b, 0));
+  const H = levelY[nLevels - 1] + levelH[nLevels - 1] + 6;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  E("defs", {}).appendChild(Object.assign(document.createElementNS(NS, "clipPath"), { id: "c-" + L.key })).appendChild(
+    (() => { const c = document.createElementNS(NS, "circle"); c.setAttribute("r", 10); return c; })());
+
+  // level bands and labels
+  if (L.levels) L.levels.forEach((lab, k) => {
+    if (k % 2) E("rect", { x: X0 - 8, y: levelY[k] - 4, width: X1 - X0 + 16, height: levelH[k], fill: "var(--band)", opacity: .5 });
+    const t = E("text", { x: 6, y: levelY[k] + 14 }); t.textContent = lab;
+  });
+  if (L.levels) { const t = E("text", { x: 6, y: 10, style: "font-weight:600" }); t.textContent = "↓ further away"; }
+  // entry-post guide line
+  const xr = xOf(M.root_created);
+  E("line", { x1: xr, x2: xr, y1: 6, y2: H - 4, stroke: "var(--blue)", "stroke-dasharray": "3 4", opacity: .5 });
+
+  place.forEach(({ i, x, lv, r }) => {
+    const s = S[i], tg = L.tag(s), y = levelY[lv] + 10 + r * rowH;
+    const g = E("g", { class: "mk", transform: `translate(${x},${y})`, tabindex: 0 });
+    E("image", { href: s.image_path_or_url, x: -10, y: -10, width: 20, height: 20, preserveAspectRatio: "xMidYMid slice", "clip-path": `url(#c-${L.key})` }, g);
+    E("circle", { class: "ring", r: 10, fill: "none", stroke: color(tg), "stroke-width": 3 }, g);
+    if (L.squares) {
+      units(s).forEach((v, k) => {
+        const sx = -10 + k * 7.5, sy = 13;
+        E("rect", { x: sx, y: sy, width: 5.5, height: 5.5, fill: v === 1 ? "var(--ink)" : "none", stroke: "var(--ink)", "stroke-width": .8 }, g);
+        if (v === .5) E("path", { d: `M${sx},${sy + 5.5} L${sx + 5.5},${sy} L${sx + 5.5},${sy + 5.5} Z`, fill: "var(--ink)" }, g);
+      });
+    }
+    const show = () => tipFor(g, s, i, L, tg, color(tg));
+    g.addEventListener("pointerenter", show); g.addEventListener("focus", show);
+    g.addEventListener("pointerleave", e => { if (e.pointerType !== "touch") hide(); }); g.addEventListener("blur", hide);
+    g.addEventListener("click", e => { if (e.pointerType === "touch" || matchMedia("(hover: none)").matches) show(); else location.href = "demo.html#s" + i; });
+    g.addEventListener("keydown", e => { if (e.key === "Enter") location.href = "demo.html#s" + i; });
+  });
+});
+
+// ---------- hover card ----------
+const tip = document.getElementById("tip");
+function hide() { tip.classList.remove("show"); }
+function tipFor(g, s, i, L, tg, col) {
+  const pro = PRO[s.author_handle];
+  // build only the hovered row's extra details
+  const u = units(s), yn = (v, a, b, c) => v === 1 ? a : v ? b : c;
+  const g2 = DL && DL.rows[rk(s)];
+  const extra = ({
+    conc: () => `<dt>Conclusion</dt><dd>${esc(s.facets.conclusion || "—")}</dd><dt>X poster</dt><dd>${yn(u[0], "still visible", "", "lost")}</dd><dt>Claim</dt><dd>${yn(u[1], "kept", "changed", "lost")}</dd><dt>Image</dt><dd>${yn(u[2], "original", "edited original", "replaced or gone")}</dd><dt>AI status</dt><dd>${yn(u[3], "says it is AI", "", "not mentioned")}</dd>`,
+    drift: () => `<dt>Distance</dt><dd>${esc(L.levels[L.level(s)])}</dd><dt>Caption drift</dt><dd>${g2 ? (g2.text ?? "—") + " (EmbeddingGemma 2)" : s.text_drift ?? "—"}</dd>${g2 ? `<dt>Picture drift</dt><dd>${g2.image ?? "—"} (EmbeddingGemma 2)</dd>` : ""}`,
+    ai: () => ``,
+    pro: () => `<dt>Type (bio)</dt><dd>${pro ? esc(pro[0]) + ": " + esc(pro[1]) : "individual (no sign in bio)"}</dd>`,
+  })[L.key]();
+  tip.innerHTML = `<img src="${s.image_path_or_url}" alt="">
+    <div class="meta">Step ${i + 1} · ${esc(ago(s.createdAt))}</div>
+    <div class="tt">${esc(s.title)}</div>
+    <span class="tag" style="--c:${col}">${esc(L.title)}: ${esc(tg)}</span>
+    <p class="q2">${s.text ? esc(s.text) : "<i>(no caption)</i>"}</p>
+    <dl>${extra}
+      <dt>Lost</dt><dd>${esc(s.lost) || "—"}</dd>
+      <dt>Account</dt><dd>${SHOW_HANDLES ? "@" + esc(s.author_handle) + " · " : ""}${fol(s.author_followers)} followers</dd>
+      <dt>Reach</dt><dd>♥ ${s.likeCount} · ↻ ${s.repostCount} · quoted ${s.quoteCount}</dd></dl>`;
+  tip.classList.add("show");
+  const r = g.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+  let left = r.right + 10; if (left + tw > innerWidth - 8) left = r.left - tw - 10; if (left < 8) left = Math.max(8, (innerWidth - tw) / 2);
+  let top = r.top + r.height / 2 - th / 2; top = Math.max(8, Math.min(top, innerHeight - th - 8));
+  tip.style.left = left + "px"; tip.style.top = top + "px";
+}
+document.addEventListener("pointerdown", e => { if (!e.target.closest(".mk")) hide(); });
+addEventListener("scroll", () => { if (!matchMedia("(hover: none)").matches) hide(); }, { passive: true });
+</script>
+</body>
+</html>

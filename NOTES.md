@@ -64,6 +64,16 @@ Jan 12 2025 (reported 6.9–7.1M views); Bluesky entry post Jan 14 2025.
 - Timeline in demo.html: posts per hour (first 3 days) + per month after, colored by link type,
   with the 27 story versions as markers.
 
+**Oct 14: five research lenses page (`lenses.html`)**
+- Charlotte's five lenses, each a row on one shared timeline (first 48 h linear, then compressed):
+  information lost by intention · topic drift · relation to the original · AI contribution · professional creation.
+- **The earliest Bluesky version (fernballew, Great Lakes map, Jan 13 21:05) is from an account whose bio says
+  "Contributor at @theonion".** Bio is current (Oct 2026) and self-described: verify before claiming.
+  Other big accounts are writers/podcasters by bio (e.g. the 316k account: WGAE member, podcast host).
+  Bios saved to `data/profiles_bio.json` (not in git).
+- Lost by *every* version: who made the image and when the X post was made.
+- The two versions that call it AI got 4 and 3 likes and were never quoted (lead only, n=2).
+
 **Not done yet / next:**
 - Pure reposts (who + followers) and independent re-posts found by search (type ① and ③).
 - Hand-code `is_ai_generated`, `emotion`, and `added/kept/lost` for 10–20 key versions.
@@ -95,3 +105,109 @@ Six questions, each mapped to data we already have or need. This replaces the 5 
 
 Next: add a `time_since_origin` field and an `is_professional` flag to the data; hand-code `stance`, `kept/lost`, `is_ai_generated`
 for 20–30 versions; then one chart per question in demo.html.
+
+## 2026-10-14: direction update (Charlotte)
+Full version in the claude.ai project: `claude/research-focus-v3.md` (+ timeline in `claude/weekly-plan.md`).
+1. **Conclusion replaces intention** (intention is too subjective). Code each post's one-sentence conclusion and its relation to the
+   original's conclusion: same / extends / shifts topic / contradicts / unrelated. Measure with NLI (entail/neutral/contradict) + embeddings; LLM draft + human check, report kappa.
+2. **AI = case-based (以点为主), not spread over time.** People interacting with AI (e.g. Grok in threads), AI-made versions, and
+   **AI remakes** (an older meme re-created with AI in a new direction; code `ai_remake`).
+3. **Account profile / power replaces "professional creator".** Account type (official / brand / media / individual), follower tier, verified, bio.
+4. **Two possible outcomes:** A. meme lookup tool (input a meme → story + trace map); B. power map (who shapes a topic, e.g. 2024 politics). May combine: A's map coloured by B's account power.
+5. **Process:** outcomes + ~12-meme dataset (heaven = deep case) → pipeline/model → user test with 6–12 Bluesky users (**needs IRB**) → CHI 2027 SRC (due Jan 21 AoE; plan to submit Jan 19).
+Also new: `design-space-table.png` (framework figure: rows = evolution over time, columns = platforms/languages).
+
+## 2026-10-21: embedding drift with EmbeddingGemma 2 (CLIP baseline), saved as layers
+- `scripts/embed_drift.py` scores posts with **EmbeddingGemma 2** (`google/embeddinggemma-2`, Apache 2.0, text + image in one
+  768-d space) and **CLIP ViT-B/32** as the baseline. Drift = 1 − cosine to the entry post. Gemma also gives a joint
+  caption+picture drift; both give a caption↔own-picture match.
+- **Layers, not overwrites (Charlotte):** the original data and simple scores (`meme_chain.json`, `chain_data.js`) are only read.
+  Each model's scores are a separate file: `data/layers/{demo,all}_{gemma,clip}.json/.js`.
+  demo.html (27 versions) has a "Drift layer" switch above the versions; chain_viewer.html (all quotes) has a "Drift layer" menu
+  that changes the side-panel numbers and the up/down position in the map. Default layer = Original (simple).
+- Setup (once): `python -m venv .venv`, then torch + torchvision (CUDA 12.8 wheels), `sentence-transformers[image]`, `transformers` (5.20.2 worked).
+  Run: `.venv\Scripts\python scripts\embed_drift.py demo` and `... embed_drift.py all` (about a minute each on the laptop GPU).
+- Results, Spearman rank agreement:
+
+  | | demo (27) | all quotes (626) |
+  |---|---|---|
+  | caption, Gemma vs CLIP | 0.87 | 0.73 |
+  | caption, Gemma vs character overlap | 0.87 | 0.63 |
+  | picture, Gemma vs CLIP | 0.83 | 0.98 (inflated: most posts show the quoted original, drift 0) → **0.69** on the 101 posts with a new picture |
+  | picture, Gemma vs perceptual hash | 0.52 | 0.72 → **0.09** on the 101 new pictures |
+  | caption↔picture, Gemma vs CLIP | 0.53 | 0.56 |
+
+  On new pictures, the hash and the models measure different things (pixel layout vs meaning). Character overlap overstates drift
+  for short rewordings ("Who took it?": 0.89 vs Gemma 0.19). Median Gemma caption drift: kept 0.00, edited 0.06, new 0.29.
+  In the demo set the original caption fits its own picture best under Gemma (0.75; swaps 0.51–0.60); CLIP doesn't separate it.
+- Caveats: different scales per model (compare ranks, not raw values). Many pictures are X screenshots with the caption *inside*
+  the image, so picture scores may partly read that text. No task prompts used (model card says try with and without).
+
+## 2026-10-28: folder reorganized
+Root was getting cluttered with loose PDFs/docx/pptx. Moved, nothing in `data/`, `scripts/`, or the HTML viewers
+changed, so nothing breaks:
+- `literature/`: the 5 reference PDFs + `specialization/Design Space.pdf` (that folder is gone now).
+  Deleted one exact duplicate (`The Time Dimension of Visual Journalism...pdf` = `Aker_2026_...pdf`, same hash).
+- `earlier-direction/`: both `Independent_Study_Proposal*.docx` (the two drafts differ — **check with Charlotte
+  which is current**) and `Research_Design_Discussion.pptx`.
+- `figures/`: `design-space-table.png`, `Leaked Photo of Heaven-screenshot.png`, `Meme_Storyboard_and_Workflow.pdf`
+  (her own storyboard, not a reference paper).
+- `.gitignore`: screenshots/papers rule was root-only (`/*.png`) and would have stopped ignoring the PNGs once
+  moved into `figures/`; changed to `*.png` (any folder) and added `*.doc` to cover the new IRB template file.
+- Not moved: `meme_candidates.xlsx`, `IRB consent template - social-behavioral.doc` (both current/active),
+  `meme-tracker/` (Obsidian vault, self-contained, left alone).
+- `project-docs/*.md` still say `design-space-table.png` "in the IS folder" — those are auto-synced from the
+  claude.ai Project, not hand-edited here, so the path note there is stale until the next sync.
+
+## 2026-10-28: research questions fixed to the v3 wording (Charlotte)
+Use the wording in `project-docs/research-focus-v3.md` (not the Week 9 meeting agenda version):
+- **RQ1 Conclusion drift:** which versions repeat, reuse as a template, comment on, invert, or leave behind the original; what
+  information (source, date, AI status, image) is lost; how this relates to link type, timing and who posts it.
+  Coded as frame × content (Repeat / Template / Comment / New meme; + Invert, No clear conclusion).
+- **RQ2 Roles of AI:** maker, remaker, interpreter, and how each redirects the meme. Case-based.
+- **RQ3 Account power:** are conclusions introduced by large or official accounts more often taken up by later versions?
+  For now measured as **adoption rate**. Charlotte is still thinking about the broader *power structure* angle
+  (who quotes whom / credit vs. attribution / who sets turning points): undecided.
+- RQ4 (design) is still only proposed.
+Page review against these RQs (no changes made yet): keep the objective parts (link type, timeline, drift layers, chain map);
+replace stance/intention with the 2×2 conclusion type; turn kept/added/lost into 6 fixed information units; hide emotion;
+lenses.html needs the most work (rows → RQ1 conclusion / content / link, RQ2 AI roles as case cards, RQ3 account power).
+**Later Oct 28: lenses.html rebuilt around RQ1–RQ3 (Charlotte: demo ≈ RQ1 + RQ2 expanded; no power map yet; keep the timeline idea).**
+- Same shared timeline, rows now grouped under RQ headers:
+  RQ1 → What it concludes (2×2) · Where the content goes (heaven becomes) · How it links;
+  RQ2 → Where AI appears (only "maker" exists in this meme; remaker/interpreter need other cases);
+  RQ3 → Who posts it (follower tiers; bio type in hover). Adoption rate + power map still to come.
+- Squares under each picture = 4 information units: X poster visible · claim kept · original image shown · says it is AI.
+- **Draft conclusion codes** (Claude, Oct 28) in `data/demo_notes.json` → `facets.conclusion`: Template 15, Comment 8, Invert 2,
+  Repeat 1 (the entry post repeats the X post), New meme 1 (Skate Heaven). Also a "Conclusion (RQ1)" button in demo.html.
+  Charlotte to check, especially: second entry point (comment vs repeat), halfpipe zoom (comment vs new meme), Skate Heaven.
+- To check: the red "Hell" recolor shows "X poster: lost" (from the old KEEP_POSTER list), but its notes say the X screenshot layout was kept.
+**Later Oct 28: page review applied (Charlotte: "use your keep/change/drop list").**
+- Roles now: **demo.html = RQ1 + RQ2 in detail** (one card per version) · **lenses.html = the time view** (when each kind of change
+  happens; RQ1 conclusion + content, RQ2 AI, RQ3 who posts) · **chain_viewer.html = all quotes** (objective layer). Power map: later.
+- `data/demo_notes.json`: new `units` per version (6 information units, draft: creator, date, x_frame, claim, image, ai_status;
+  1 / 0.5 / 0). demo cards show them as an "Info" row; lenses draws 4 of them (creator and date are lost by all). Replaces the
+  hard-coded lists that were in lenses.html.
+- demo cards: conclusion tag next to TYPE A/B; emotion label hidden (data kept). Sort buttons "Stance" and "Builds on" removed
+  (data kept; replaced by "Conclusion (RQ1)").
+- lenses: "How it links" row removed (demo already has the link section + timeline by link type).
+- Kept the act structure (A edits / A talks / B…) for now: re-ordering the story by the 2×2 should wait until the conclusion codes are checked.
+- Fixed: chain_viewer link text "19-step" → "27-version"; build_chain.py docstring file name.
+**Later Oct 28: demo.html reorganised for viewers (Charlotte).**
+- Order now: chain at a glance → **Ways to sort** (moved up, opens on "What it concludes" shown as the 2×2: frame kept/changed ×
+  content kept/changed, Invert inside Template) → **new chart "Do the words drift, or the picture?"** → timeline →
+  **"How a post can link" folded** (click to open) → the cards. Sort buttons carry RQ1/RQ2/RQ3 tags; new "AI's role" (RQ2) sort;
+  "Account size" uses the same 4 tiers as lenses.
+- Chart: x = caption drift, y = picture drift (follows the drift layer; own layer buttons), dots coloured Template / Comment / other
+  (other = labelled). Entry post = ring at (0,0). Table view underneath. Versions with no caption (2) are left out.
+- What it shows (EmbeddingGemma 2): Templates top-left (same words, new picture), Comments lower-right (new words, mostly same picture).
+  **Caution: partly circular.** The conclusion codes were drafted partly from the same signals (caption kept? new picture?), so the
+  separation is expected by construction. It becomes evidence only once the codes are checked by hand (ideally by a second coder, κ).
+
+## 2026-10-28: new feedback on the website (logged in project doc `advisor-feedback.md`)
+1. Human evaluation vs. embedding drift: worth doing (also breaks the circularity of the drift chart). Raters outside the team → IRB by Nov 8.
+2. A map focused on how each version evolves (step vs. its parent, not only vs. the original).
+3. **Next focus:** does the pipeline work for other memes? Hard-coded heaven root in embed_drift.py, fetch_replies.py,
+   fetch_independent.py (search phrases), make_demo.py; demo_notes.json is hand-written. Need a per-meme config + LLM-draft coding.
+4. Meme-template libraries: known templates help spreading; heaven already has "unbothered. moisturized." (step 12) and a
+   4-panel reaction template (step 16). A template could be its own cluster to study.
