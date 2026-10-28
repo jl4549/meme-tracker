@@ -26,13 +26,21 @@ All three pages share a **Story · Timeline · All quotes** switch at the top.
 
 ## Run it locally
 
-The pages read data files that are **not in this repo** (see [Data and ethics](#data-and-ethics)), so build the data first (below), then start the local server from this folder:
+The pages are **not hosted online**: they run on your own computer. They also read data files that are **not in this repo** (see [Data and ethics](#data-and-ethics)), so on a new computer build the data first (below).
 
-```bash
-python scripts/serve.py
-```
+1. Open a terminal in this folder and start the local server:
 
-Open http://localhost:8000/demo.html. (`serve.py` is like `python -m http.server`, but it stops the browser from showing old cached copies.)
+   ```bash
+   python scripts/serve.py
+   ```
+
+2. Wait for the line `Serving this folder at http://localhost:8000/demo.html`.
+3. Open **http://localhost:8000/demo.html** in your browser. Use the switch at the top for the other two views.
+4. Keep the terminal open while you browse. `Ctrl+C` in it stops the server.
+
+**The page won't open?** The server isn't running: do step 1 again. If it says "Port 8000 is already in use", a server is already running in another terminal; use that one, or stop it with `Ctrl+C` first.
+
+(`serve.py` is like `python -m http.server`, but it stops the browser from showing old cached copies.)
 
 ## Data pipeline
 
